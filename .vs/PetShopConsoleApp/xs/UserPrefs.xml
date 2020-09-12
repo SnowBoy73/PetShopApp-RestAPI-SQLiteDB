@@ -1,0 +1,27 @@
+﻿<Properties StartupConfiguration="{56FBAC5D-F0D9-4DD2-BB8F-FCDD301B0FC2}|Default">
+  <MonoDevelop.Ide.ItemProperties.UI.PetShop.ConsoleApp PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PetShop.UI/Printer.cs">
+    <Files>
+      <File FileName="PetShop.UI/Printer.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="PetShopConsoleApp" expanded="True">
+            <Node name="UI" expanded="True">
+              <Node name="PetShop.ConsoleApp" expanded="True">
+                <Node name="Printer.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

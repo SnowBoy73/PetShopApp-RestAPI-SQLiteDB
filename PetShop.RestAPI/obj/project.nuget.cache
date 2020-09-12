@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "nj8/QWAfzZ/b7mFOWNpzEbOBVPK1KBc33R6vTbRBvz3WhInGIlfgsGC/9nGcVEZg0xVaweaj8N6TzPQZ1vQzeQ==",
+  "success": true,
+  "projectFilePath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.RestAPI/PetShop.RestAPI.csproj",
+  "expectedPackageFiles": [
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.configuration/3.1.7/microsoft.extensions.configuration.3.1.7.nupkg.sha512",
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.configuration.abstractions/3.1.7/microsoft.extensions.configuration.abstractions.3.1.7.nupkg.sha512",
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.configuration.binder/3.1.7/microsoft.extensions.configuration.binder.3.1.7.nupkg.sha512",
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.dependencyinjection/3.1.7/microsoft.extensions.dependencyinjection.3.1.7.nupkg.sha512",
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/3.1.7/microsoft.extensions.dependencyinjection.abstractions.3.1.7.nupkg.sha512",
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.logging/3.1.7/microsoft.extensions.logging.3.1.7.nupkg.sha512",
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.logging.abstractions/3.1.7/microsoft.extensions.logging.abstractions.3.1.7.nupkg.sha512",
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.options/3.1.7/microsoft.extensions.options.3.1.7.nupkg.sha512",
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.primitives/3.1.7/microsoft.extensions.primitives.3.1.7.nupkg.sha512"
+  ],
+  "logs": []
+}

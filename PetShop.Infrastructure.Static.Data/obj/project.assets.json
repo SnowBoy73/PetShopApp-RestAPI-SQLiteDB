@@ -1,0 +1,108 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "PetShop.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "PetShop.Core.Entity": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PetShop.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PetShop.Core.dll": {}
+        }
+      },
+      "PetShop.Core.Entity/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/PetShop.Core.Entity.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PetShop.Core.Entity.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "PetShop.Core/1.0.0": {
+      "type": "project",
+      "path": "../PetShop.Core/PetShop.Core.csproj",
+      "msbuildProject": "../PetShop.Core/PetShop.Core.csproj"
+    },
+    "PetShop.Core.Entity/1.0.0": {
+      "type": "project",
+      "path": "../PetShop.Core.Entity/PetShop.Core.Entity.csproj",
+      "msbuildProject": "../PetShop.Core.Entity/PetShop.Core.Entity.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.1": [
+      "PetShop.Core >= 1.0.0",
+      "PetShop.Core.Entity >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Infrastructure.Static.Data/PetShop.Infrastructure.Data.csproj",
+      "projectName": "PetShop.Infrastructure.Data",
+      "projectPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Infrastructure.Static.Data/PetShop.Infrastructure.Data.csproj",
+      "packagesPath": "/Users/jeannerosendalsoeltoft/.nuget/packages/",
+      "outputPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Infrastructure.Static.Data/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/Users/jeannerosendalsoeltoft/.config/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.1"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "projectReferences": {
+            "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core.Entity/PetShop.Core.Entity.csproj": {
+              "projectPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core.Entity/PetShop.Core.Entity.csproj"
+            },
+            "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core/PetShop.Core.csproj": {
+              "projectPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core/PetShop.Core.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.1": {
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.401/RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
