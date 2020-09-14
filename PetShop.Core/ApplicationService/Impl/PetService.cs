@@ -16,7 +16,7 @@ namespace PetShop.Core.ApplicationService.Impl
         }
 
 
-        public Pet NewPet(string name, string type, string colour, DateTime birthDate, double price, DateTime soldDate, string previousOwner)
+        public Pet NewPet(string name, PetType type, string colour, DateTime birthDate, double price, DateTime soldDate, Owner previousOwner)
         {
             var newPet = new Pet()
             {
@@ -55,8 +55,8 @@ namespace PetShop.Core.ApplicationService.Impl
                     return query.ToList(); ;
 
                 case "2":
-                    query = list.Where(pet => pet.Type.ToLower().Contains(searchValue.ToLower()));
-                    return query.ToList(); ;
+                    //   query = list.Where(pet => pet.Type.ToLower().Contains(searchValue.ToLower()));
+                    return null; //query.ToList(); ;
 
                 case "3":
                     if (searchValue == "Y" || searchValue == "y")

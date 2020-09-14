@@ -8,7 +8,7 @@ namespace PetShop.RestAPI
 {
     public class Printer : IPrinter
     {
-        #region Repository area
+     /*   #region Repository area
 
         private IPetService _petService;
         #endregion
@@ -182,7 +182,7 @@ namespace PetShop.RestAPI
                         /*  var genderU = AskQuestion("New gender? (M/F/O?")");
                         if (genderU == "")
                             genderU = petToUpdate.Gender; */
-                        var colourU = AskQuestion("New colour?");
+          /*              var colourU = AskQuestion("New colour?");
                         if (colourU == "")
                             colourU = petToUpdate.Colour;
                         DateTime birthDateU = DateTime.Now;
@@ -454,6 +454,6 @@ namespace PetShop.RestAPI
         }
         #endregion
 
-
+        */
     }
 }

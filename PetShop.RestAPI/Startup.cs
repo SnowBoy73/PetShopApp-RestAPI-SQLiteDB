@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using PetShop.Core.ApplicationService;
 using PetShop.Core.ApplicationService.Impl;
 using PetShop.Core.DomainService;
@@ -21,7 +22,6 @@ namespace PetShop.RestAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-           // FakeDB fakeDB;  // NEW probably very bad
         }
 
 
@@ -33,18 +33,30 @@ namespace PetShop.RestAPI
             var serviceCollection = new ServiceCollection();                // start old
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
+            services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<IOwnerService, OwnerService>();
+            services.AddScoped<IPetTypeRepository, PetTypeRepository>();
+            services.AddScoped<IPetTypeService, PetTypeService>();
+
+            services.AddScoped<IFakeDB, FakeDB>();  // Needed??
+
             services.AddControllers(); /* o.AddNetwtonsoftJson(option =>
             {option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             }(;  */
-            services.AddScoped<IFakeDB, FakeDB>();  // Needed??
+            services.AddMvc().AddNewtonsoftJson();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);  //MAYBE
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                // Use the default property (Pascal) casing
+               options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+               options.SerializerSettings.MaxDepth = 2;
+            });
 
             // Build provider
-            var serviceProvider = services.BuildServiceProvider();
-           // var fakeDB = serviceProvider.GetRequiredService<IFakeDB>();
-
-
+            //var serviceProvider = services.BuildServiceProvider();
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -54,8 +66,10 @@ namespace PetShop.RestAPI
                 app.UseDeveloperExceptionPage();
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
-                    var repo = scope.ServiceProvider.GetService<IPetRepository>();
-                    new FakeDB(repo).InitData();
+                    var petrepo = scope.ServiceProvider.GetService<IPetRepository>();
+                    var ownerrepo = scope.ServiceProvider.GetService<IOwnerRepository>();
+                    var petTyperepo = scope.ServiceProvider.GetService<IPetTypeRepository>();
+                    new FakeDB(ownerrepo, petTyperepo, petrepo).InitData();
                 }
             }
 

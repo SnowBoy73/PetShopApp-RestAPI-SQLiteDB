@@ -1,0 +1,83 @@
+﻿using System;
+using System.Collections.Generic;
+using PetShop.Core.DomainService;
+using PetShop.Core.Entity;
+
+namespace PetShop.Infrastructure.Data.Repositories
+{
+    public class OwnerRepository : IOwnerRepository
+    {
+        static int id = 1; // as DB cannot have an id of 0
+        private static List<Owner> _owners = new List<Owner>();
+
+        public OwnerRepository()
+        {
+         /*   Owner owner2 = new Owner()
+            {
+                Name = "ruff Allen",
+                Address = "Planet Gong",
+                PetsOwned = null,
+                //  PetsOwned.Add(test) // { PetId = 11 })  //null // { pet10 }
+            };
+         */
+        }
+
+
+        public Owner CreateOwner(Owner owner)
+        {
+            owner.OwnerId = id++;
+            _owners.Add(owner);
+            return owner;
+        }
+
+
+
+        public IEnumerable<Owner> ReadAllOwners()
+         {
+            return _owners;
+        }
+
+
+
+        public Owner ReadById(int id)
+        {
+            foreach (var owner in _owners)
+            {
+                if (owner.OwnerId == id)
+                {
+                    return owner;
+                }
+            }
+            return null;
+        }
+
+
+
+        // Remove later for UOW
+        public Owner UpdateOwner(Owner ownerUpdate)
+        {
+            var ownerFromDB = this.ReadById(ownerUpdate.OwnerId);
+            if (ownerFromDB != null)
+            {
+                ownerFromDB.Name = ownerUpdate.Name;
+                ownerFromDB.Address = ownerUpdate.Address;
+                ownerFromDB.PetsOwned = ownerUpdate.PetsOwned;
+                return ownerFromDB;
+            }
+            return null;
+        }
+
+
+        public Owner DeleteOwner(int id)
+        {
+            var ownerFound = this.ReadById(id);
+            if (ownerFound != null)
+            {
+                _owners.Remove(ownerFound);
+                return ownerFound;
+            }
+            return null;
+        }
+
+    }
+}

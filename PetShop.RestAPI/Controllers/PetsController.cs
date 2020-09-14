@@ -46,10 +46,14 @@ namespace PetShop.RestAPI.Controllers
         [HttpGet("{id}")]
         public ActionResult<Pet> Get(int id)
         {
+            if (id < 1)
+            {
+                return BadRequest("Request Failed - Id must be greater than zero");
+            }
             Pet petToGet = _petService.FindPetById(id);
             if (petToGet == null)
             {
-                return StatusCode(500, "Unable to find this pet");
+                return StatusCode(404, "Unable to find this pet");
             }
             return StatusCode(200, petToGet);
         }
@@ -64,7 +68,7 @@ namespace PetShop.RestAPI.Controllers
             {
                 return BadRequest("No pet name supplied");
             }
-            if (string.IsNullOrEmpty(petToPost.Type))
+            if (petToPost.Type == null)   ///NEW
             {
                 return BadRequest("No pet type supplied");
             }
@@ -87,12 +91,12 @@ namespace PetShop.RestAPI.Controllers
                   {
                       return BadRequest("No pet sold date supplied");
                   }
-              */
+              
             if (string.IsNullOrEmpty(petToPost.PreviousOwner))
             {
                 return BadRequest("No pet previous owner supplied");
             }
-            Pet petToCreate = _petService.CreatePet(petToPost);
+        */    Pet petToCreate = _petService.CreatePet(petToPost);
             if (petToCreate == null)
             {
                 return StatusCode(500, "Unable to create this pet");

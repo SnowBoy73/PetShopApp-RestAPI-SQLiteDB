@@ -7,7 +7,7 @@ namespace PetShop.Core.ApplicationService
     public interface IPetService
     {
         // New Pet
-        Pet NewPet(string name, string type, /*gender*/ string colour, DateTime birthDate, double price, DateTime soldDate, string previousOwner);
+        Pet NewPet(string name, PetType type, /*gender*/ string colour, DateTime birthDate, double price, DateTime soldDate, Owner previousOwner);
 
         // Create
         Pet CreatePet(Pet createdPet);

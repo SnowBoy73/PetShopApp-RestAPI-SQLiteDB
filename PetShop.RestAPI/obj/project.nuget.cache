@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "nj8/QWAfzZ/b7mFOWNpzEbOBVPK1KBc33R6vTbRBvz3WhInGIlfgsGC/9nGcVEZg0xVaweaj8N6TzPQZ1vQzeQ==",
+  "dgSpecHash": "hstEPiJ4g+XQJ75ZXdLD3Z3JyVPxl6qCxX1TU7lyYozDCXnFmC5AyH1YAN4yXro43RVXw/h75+IYmeaq15iNVg==",
   "success": true,
   "projectFilePath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.RestAPI/PetShop.RestAPI.csproj",
   "expectedPackageFiles": [
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.aspnetcore.jsonpatch/3.1.8/microsoft.aspnetcore.jsonpatch.3.1.8.nupkg.sha512",
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.aspnetcore.mvc.newtonsoftjson/3.1.8/microsoft.aspnetcore.mvc.newtonsoftjson.3.1.8.nupkg.sha512",
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.configuration/3.1.7/microsoft.extensions.configuration.3.1.7.nupkg.sha512",
     "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.configuration.abstractions/3.1.7/microsoft.extensions.configuration.abstractions.3.1.7.nupkg.sha512",
     "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.configuration.binder/3.1.7/microsoft.extensions.configuration.binder.3.1.7.nupkg.sha512",
@@ -12,7 +15,9 @@
     "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.logging/3.1.7/microsoft.extensions.logging.3.1.7.nupkg.sha512",
     "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.logging.abstractions/3.1.7/microsoft.extensions.logging.abstractions.3.1.7.nupkg.sha512",
     "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.options/3.1.7/microsoft.extensions.options.3.1.7.nupkg.sha512",
-    "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.primitives/3.1.7/microsoft.extensions.primitives.3.1.7.nupkg.sha512"
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/microsoft.extensions.primitives/3.1.7/microsoft.extensions.primitives.3.1.7.nupkg.sha512",
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512",
+    "/Users/jeannerosendalsoeltoft/.nuget/packages/newtonsoft.json.bson/1.0.2/newtonsoft.json.bson.1.0.2.nupkg.sha512"
   ],
   "logs": []
 }

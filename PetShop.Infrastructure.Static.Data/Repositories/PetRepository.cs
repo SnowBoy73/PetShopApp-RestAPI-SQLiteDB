@@ -11,12 +11,7 @@ namespace PetShop.Infrastructure.Data.Repositories
         private static List<Pet> _pets = new List<Pet>();
 
 
-
-     /*   public PetRepository()   // NEW constr.
-        {
-        }
-
-*/
+    
         public Pet CreatePet(Pet pet)
         {
             pet.PetId = id++;
