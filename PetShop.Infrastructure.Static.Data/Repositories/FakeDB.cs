@@ -86,70 +86,70 @@ namespace PetShop.Infrastructure.Data.Repositories
             // PET TYPES
             PetType petType1 = new PetType()
             {
-                Type = "Snake"
+                Name = "Snake"
             };
             _petTypeRepo.CreatePetType(petType1);
 
 
             PetType petType2 = new PetType()
             {
-                Type = "Cat"
+                Name = "Cat"
             };
             _petTypeRepo.CreatePetType(petType2);
 
 
             PetType petType3 = new PetType()
             {
-                Type = "Dog"
+                Name = "Dog"
             };
             _petTypeRepo.CreatePetType(petType3);
 
 
             PetType petType4 = new PetType()
             {
-                Type = "Wombat"
+                Name = "Wombat"
             };
             _petTypeRepo.CreatePetType(petType4);
 
 
             PetType petType5 = new PetType()
             {
-                Type = "Fish"
+                Name = "Fish"
             };
             _petTypeRepo.CreatePetType(petType5);
 
 
             PetType petType6 = new PetType()
             {
-                Type = "Iguana"
+                Name = "Iguana"
             };
             _petTypeRepo.CreatePetType(petType6);
 
 
             PetType petType7 = new PetType()
             {
-                Type = "Frog"
+                Name = "Frog"
             };
             _petTypeRepo.CreatePetType(petType7);
 
 
             PetType petType8 = new PetType()
             {
-                Type = "Rabbit"
+                Name = "Rabbit"
             };
             _petTypeRepo.CreatePetType(petType8);
 
 
             PetType petType9 = new PetType()
             {
-                Type = "Giraffe"
+                Name = "Giraffe"
             };
             _petTypeRepo.CreatePetType(petType9);
 
 
             PetType petType10 = new PetType()
             {
-                Type = "Spider"
+                Name = "Spider"
                 //SubType = "Black Widow"
             };
             _petTypeRepo.CreatePetType(petType10);

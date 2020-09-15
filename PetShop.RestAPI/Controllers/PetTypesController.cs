@@ -62,7 +62,7 @@ namespace PetShop.RestAPI.Controllers
         [HttpPost]  // NOT essential. Only needed if we change this methods name from "Post", and then it tells the system this is the POST method. Needed if sending parameters
         public ActionResult<PetType> Post([FromBody] PetType petTypeToPost)
         {
-            if (string.IsNullOrEmpty(petTypeToPost.Type))
+            if (string.IsNullOrEmpty(petTypeToPost.Name))
             {
                 return BadRequest("No name of pet type supplied");
             }

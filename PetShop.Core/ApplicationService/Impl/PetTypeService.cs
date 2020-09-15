@@ -20,7 +20,7 @@ namespace PetShop.Core.ApplicationService.Impl
         {
             var newPetType = new PetType()
             {
-                Type = type,
+                Name = type,
             };
             return newPetType;
         }
@@ -87,7 +87,7 @@ namespace PetShop.Core.ApplicationService.Impl
             }
             else
             {
-            updatedPetType.Type = petTypeUpdate.Type;
+            updatedPetType.Name = petTypeUpdate.Name;
                    
                 return updatedPetType;
             }

@@ -53,7 +53,7 @@ namespace PetShop.Infrastructure.Data.Repositories
             var petTypeFromDB = this.ReadById(petTypeUpdate.PetTypeId);
             if (petTypeFromDB != null)
             {
-            petTypeFromDB.Type = petTypeUpdate.Type;
+            petTypeFromDB.Name = petTypeUpdate.Name;
                    
                 return petTypeFromDB;
             }
