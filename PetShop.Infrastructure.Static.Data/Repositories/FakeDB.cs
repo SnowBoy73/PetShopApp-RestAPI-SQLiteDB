@@ -2,6 +2,7 @@
 using PetShop.Core.DomainService;
 using PetShop.Core.Entity;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PetShop.Infrastructure.Data.Repositories
 {
@@ -152,7 +153,8 @@ namespace PetShop.Infrastructure.Data.Repositories
                 //SubType = "Black Widow"
             };
             _petTypeRepo.CreatePetType(petType10);
-
+           // int test = _petTypeRepo.ReadAllPetTypes().ToList().Count;
+           // Console.WriteLine($"Pet Type count = {test}");
 
 
 

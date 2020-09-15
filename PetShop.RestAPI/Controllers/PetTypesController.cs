@@ -28,11 +28,9 @@ namespace PetShop.RestAPI.Controllers
         // GET: api/petTypes
         [HttpGet]
         public ActionResult<List<PetType>> Get(/*[FromQuery] string orderDir*/)
-        //public ActionResult<IEnumerable<string>> Get(/*[FromQuery] string orderDir*/)
         {
             IEnumerable<PetType> allPetTypesENUM = _petTypeService.GetAllPetTypes();
             List<PetType> allPetTypes = allPetTypesENUM.ToList();
-
             if (allPetTypes.Count == 0)
             {
                 return StatusCode(500, "There are no pet types in the pet types list");
@@ -50,14 +48,12 @@ namespace PetShop.RestAPI.Controllers
             {
                 return BadRequest("Request Failed - Id must be greater than zero");
             }
-        PetType petTypeToGet = _petTypeService.FindPetTypeById(id); //FindOwnerById(id);
-
-            // Console.WriteLine($"name {ownerToGet.Name}  address {ownerToGet.Address}  pets# {ownerToGet.PetsOwned.Count()}");
+        PetType petTypeToGet = _petTypeService.FindPetTypeById(id);
             if (petTypeToGet == null)
             {
-                return StatusCode(404, "Unable to find this pet type");
+                return StatusCode(404, "Request Failed - Unable to find this pet type");
             }
-            return petTypeToGet; // StatusCode(200, petTypeToGet);
+            return StatusCode(200, petTypeToGet);
         }
 
 

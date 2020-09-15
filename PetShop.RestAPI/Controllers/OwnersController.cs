@@ -50,14 +50,12 @@ namespace PetShop.RestAPI.Controllers
             {
                 return BadRequest("Request Failed - Id must be greater than zero");
             }
-            Owner ownerToGet = _ownerService.FindOwnerByIdIncludingPets(id); //FindOwnerById(id);
-
-            Console.WriteLine($"name {ownerToGet.Name}  address {ownerToGet.Address}  pets# {ownerToGet.PetsOwned.Count()}");
+            Owner ownerToGet = _ownerService.FindOwnerByIdIncludingPets(id);
             if (ownerToGet == null)
             {
-                return StatusCode(404, "Unable to find this owner");
+                return StatusCode(404, "Request Failed - Unable to find this owner");
             }
-            return ownerToGet; // StatusCode(200, ownerToGet);
+            return StatusCode(200, ownerToGet);
         }
 
 

@@ -30,26 +30,22 @@ namespace PetShop.RestAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var serviceCollection = new ServiceCollection();                // start old
+            var serviceCollection = new ServiceCollection();
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<IPetTypeRepository, PetTypeRepository>();
             services.AddScoped<IPetTypeService, PetTypeService>();
+            services.AddScoped<IFakeDB, FakeDB>();
 
-            services.AddScoped<IFakeDB, FakeDB>();  // Needed??
-
-            services.AddControllers(); /* o.AddNetwtonsoftJson(option =>
-            {option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            }(;  */
+            services.AddControllers(); 
             services.AddMvc().AddNewtonsoftJson();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);  //MAYBE
             services.AddControllers().AddNewtonsoftJson(options =>
-            {
-                // Use the default property (Pascal) casing
-               options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-               options.SerializerSettings.MaxDepth = 2;
+            {    // Use the default property (Pascal) casing
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.MaxDepth = 2;
             });
 
             // Build provider

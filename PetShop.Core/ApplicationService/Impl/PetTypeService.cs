@@ -38,13 +38,6 @@ namespace PetShop.Core.ApplicationService.Impl
         }
 
 
-        /*    public PetType FindPetTypeByIdIncludingPets(int id)
-         {
-             var owner = _ownerRepo.ReadById(id);
-             owner.PetsOwned = _petRepo.ReadAllPets().Where(pet => pet.PreviousOwner.OwnerId == owner.OwnerId).ToList();
-             return owner;
-         }
-         */
 
          public List<PetType> FindPetTypesByProperty(string prop, string searchValue)
          {
