@@ -149,6 +149,10 @@ namespace PetShop.RestAPI.Controllers
                 }
                 else
                 {
+                    if ((pet.PetId != petFromDB.PetId) || (pet.Name != petFromDB.Name) || (pet.Colour != petFromDB.Colour) || (pet.BirthDate != petFromDB.BirthDate) || (pet.Price != petFromDB.Price) || (pet.SoldDate != petFromDB.SoldDate))
+                    {
+                        error = "Request Failed - Pet details supplied for owned pet number " + count + " is different from the details of the pet in the database with id " + pet.PetId + ". Please correct the pets details or id to match a valid pet";
+                    }
                     if (string.IsNullOrEmpty(pet.Name))
                     {
                         error = "Request Failed - No pet name supplied for owned pet number " + count;
