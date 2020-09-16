@@ -41,11 +41,11 @@ namespace PetShop.RestAPI
 
             services.AddControllers(); 
             services.AddMvc().AddNewtonsoftJson();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);  //MAYBE
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllers().AddNewtonsoftJson(options =>
             {    // Use the default property (Pascal) casing
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                options.SerializerSettings.MaxDepth = 2;
+                options.SerializerSettings.MaxDepth = 100;  // 100 pet limit per owner
             });
 
             // Build provider

@@ -17,11 +17,13 @@ namespace PetShop.RestAPI.Controllers
       
         private readonly IPetService _petService;
         private readonly IPetTypeService _petTypeService;
+        private readonly IOwnerService _ownerService;
 
-        public PetsController(IPetService petService, IPetTypeService petTypeService)
+        public PetsController(IPetService petService, IPetTypeService petTypeService, IOwnerService ownerService)
         {
             _petService = petService;
             _petTypeService = petTypeService;
+            _ownerService = ownerService;
         }
 
 
@@ -61,7 +63,7 @@ namespace PetShop.RestAPI.Controllers
 
         // POST api/pets
         [HttpPost]  // NOT essential. Only needed if we change this methods name from "Post", and then it tells the system this is the POST method. Needed if sending parameters
-        public ActionResult<Pet> Post([FromBody] Pet petToPost) // Pet {pet} //string name, string type, string colour, DateTime birthDate, double price, DateTime soldDate, string previousOwner)
+        public ActionResult<Pet> Post([FromBody] Pet petToPost)
         {
             string error = CheckPetInput(petToPost);
             if (!(error == ""))
@@ -69,10 +71,11 @@ namespace PetShop.RestAPI.Controllers
                 return StatusCode(500, error);
             }
             Pet petToCreate = _petService.CreatePet(petToPost);
-            if (petToCreate == null)
+          /*  if (petToCreate == null)
             {
                 return StatusCode(404, "Unable to create this pet");
             }
+          */
             return StatusCode(201, petToCreate);
         }
 
@@ -84,7 +87,7 @@ namespace PetShop.RestAPI.Controllers
         {
             if (id < 1)
             {
-                return StatusCode(500, "Request Failed - Id must be greater than zero");
+                return StatusCode(500, "Request Failed - Pet id must be greater than zero");
             }
             if (id != petToPut.PetId)
             {
@@ -95,7 +98,6 @@ namespace PetShop.RestAPI.Controllers
             {
                 return StatusCode(500, error);
             }
-           // CheckPetInput(petToPut);
             Pet petToUpdate  = _petService.UpdatePet(petToPut);
             if (petToUpdate == null)
             {
@@ -116,7 +118,7 @@ namespace PetShop.RestAPI.Controllers
             {
                 return StatusCode(404, "No pet with id " + id + " was not found to delete");
             }
-            return StatusCode(202, deletedPet);  // Ok($"Pet with id {id} was deleted");  //  deletedPet;
+            return StatusCode(202, deletedPet);
         }
 
 
@@ -129,21 +131,26 @@ namespace PetShop.RestAPI.Controllers
                 error = "Request Failed - No pet name supplied";
             }
 
-           
             PetType petType = _petTypeService.FindPetTypeById(pet.Type.PetTypeId);
             if (petType == null)
             {
                 error = "Request Failed - Pet type Id supplied does not exist";
             }
-
-            if (pet.Type.Name != petType.Name)
+            else
             {
-                 error = "Request Failed - Pet type name supplied id different from the name of this pet type. Please correct the name or id to match a valid pet type";
+                if (pet.Type.Name != petType.Name)
+                {
+                    error = "Request Failed - Pet type name supplied is different from the name of this pet type. Please correct the name or id to match a valid pet type";
+                }
+
+                if (pet.Type.Name == "")
+                {
+                    error = "Request Failed - Pet type name not supplied";
+                }
             }
-            
             if (string.IsNullOrEmpty(pet.Colour))
             {
-                error = "No pet colour supplied";
+                error = "Request Failed - No pet colour supplied";
             }
 
             if (pet.BirthDate < DateTime.Now.AddYears(-275))
@@ -174,6 +181,22 @@ namespace PetShop.RestAPI.Controllers
             if (pet.SoldDate < pet.BirthDate)
             {
                 error = "Request Failed - Sold date is before birthdate";
+            }
+
+            Owner previousOwner = _ownerService.FindOwnerById(pet.PreviousOwner.OwnerId);
+            if (previousOwner == null)
+            {
+                error = "Request Failed - Previous owner Id supplied does not exist";
+            }
+
+            if ((previousOwner != null) && (pet.PreviousOwner.Name != previousOwner.Name))
+            {
+                error = "Request Failed - Name of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
+            }
+
+            if ((previousOwner != null) && (pet.PreviousOwner.Address != previousOwner.Address))
+            {
+                error = "Request Failed - Address of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
             }
 
             return error;

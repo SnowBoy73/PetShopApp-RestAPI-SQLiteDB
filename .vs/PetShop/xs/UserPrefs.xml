@@ -1,13 +1,11 @@
 ﻿<Properties StartupConfiguration="{CBB36323-0948-4B58-9F6A-E3DB22AB85CC}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="PetShop.Core.Entity/Pet.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PetShop.RestAPI/Startup.cs">
     <Files>
-      <File FileName="PetShop.RestAPI/Controllers/OwnersController.cs" Line="59" Column="10" />
-      <File FileName="PetShop.RestAPI/Controllers/PetsController.cs" Line="101" Column="1" />
+      <File FileName="PetShop.RestAPI/Controllers/OwnersController.cs" Line="28" Column="46" />
+      <File FileName="PetShop.RestAPI/Controllers/PetsController.cs" Line="14" Column="20" />
       <File FileName="PetShop.RestAPI/Controllers/PetTypesController.cs" Line="23" Column="46" />
-      <File FileName="PetShop.Infrastructure.Static.Data/Repositories/FakeDB.cs" Line="157" Column="14" />
-      <File FileName="PetShop.Core/ApplicationService/Impl/PetService.cs" />
-      <File FileName="PetShop.Core.Entity/PetType.cs" Line="12" Column="1" />
-      <File FileName="PetShop.Core.Entity/Pet.cs" Line="8" Column="1" />
+      <File FileName="PetShop.Core.Entity/Owner.cs" Line="1" Column="1" />
+      <File FileName="PetShop.RestAPI/Startup.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -20,9 +18,7 @@
                 </Node>
                 <Node name="DomainService" expanded="True" />
               </Node>
-              <Node name="PetShop.Core.Entity" expanded="True">
-                <Node name="Pet.cs" selected="True" />
-              </Node>
+              <Node name="PetShop.Core.Entity" expanded="True" />
             </Node>
             <Node name="Infrastructure" expanded="True">
               <Node name="PetShop.Infrastructure.Data" expanded="True">
@@ -33,6 +29,7 @@
               <Node name="PetShop.RestAPI" expanded="True">
                 <Node name="Dependencies" expanded="True" />
                 <Node name="Controllers" expanded="True" />
+                <Node name="Startup.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -52,7 +49,6 @@
     <BreakpointStore>
       <Breakpoint enabled="false" file="/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Infrastructure.Static.Data/Repositories/PetRepository.cs" relfile="PetShop.Infrastructure.Static.Data/Repositories/PetRepository.cs" line="20" column="1" />
       <Breakpoint enabled="false" file="/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.RestAPI/Controllers/PetTypesController.cs" relfile="PetShop.RestAPI/Controllers/PetTypesController.cs" line="30" column="1" />
-      <Breakpoint file="/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.RestAPI/Controllers/PetsController.cs" relfile="PetShop.RestAPI/Controllers/PetsController.cs" line="170" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />

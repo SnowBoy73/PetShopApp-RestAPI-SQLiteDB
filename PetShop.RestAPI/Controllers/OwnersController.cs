@@ -14,13 +14,19 @@ namespace PetShop.RestAPI.Controllers
     [ApiController]
     public class OwnersController : Controller
     {
-        
+
         private readonly IOwnerService _ownerService;
+        private readonly IPetService _petService;
+        private readonly IPetTypeService _petTypeService;
+        //public PetsController petsController;
 
 
-        public OwnersController(IOwnerService ownerService)
+        public OwnersController(IOwnerService ownerService, IPetService petService, IPetTypeService petTypeService)
         {
             _ownerService = ownerService;
+            _petService = petService;
+            _petTypeService = petTypeService;
+            //   petsController = new PetsController;
         }
 
 
@@ -48,7 +54,7 @@ namespace PetShop.RestAPI.Controllers
         {
             if (id < 1)
             {
-                return BadRequest("Request Failed - Id must be greater than zero");
+                return StatusCode(500, "Request Failed - Id must be greater than zero");
             }
             Owner ownerToGet = _ownerService.FindOwnerByIdIncludingPets(id);
             if (ownerToGet == null)
@@ -62,26 +68,14 @@ namespace PetShop.RestAPI.Controllers
 
         // POST api/owners
         [HttpPost]  // NOT essential. Only needed if we change this methods name from "Post", and then it tells the system this is the POST method. Needed if sending parameters
-        public ActionResult<Owner> Post([FromBody] Owner ownerToPost) // Pet {pet} //string name, string type, string colour, DateTime birthDate, double price, DateTime soldDate, string previousOwner)
+        public ActionResult<Owner> Post([FromBody] Owner ownerToPost)
         {
-            if (string.IsNullOrEmpty(ownerToPost.Name))
+            string error = CheckOwnerInput(ownerToPost);
+            if (!(error == ""))
             {
-                return BadRequest("No name of owner supplied");
+                return StatusCode(500, error);
             }
-            if (string.IsNullOrEmpty(ownerToPost.Address))
-            {
-                return BadRequest("No address of owner supplied");
-            }
-         /*   if (List<Pet> == null) .IsNullOrEmpty(ownerToPost.PetsOwned))
-            {
-                return BadRequest("No pet colour supplied");
-            }
-         */ 
             Owner ownerToCreate = _ownerService.CreateOwner(ownerToPost);
-            if (ownerToCreate == null)
-            {
-                return StatusCode(500, "Unable to create this owner");
-            }
             return StatusCode(201, ownerToCreate);
         }
 
@@ -89,16 +83,25 @@ namespace PetShop.RestAPI.Controllers
 
         // PUT api/owners/5
         [HttpPut("{id}")]
-        public ActionResult<Owner> Put(int id, [FromBody] Owner ownerToPut)  // string name, string type, string colour, DateTime birthDate, double price, DateTime soldDate, string previousOwner)
+        public ActionResult<Owner> Put(int id, [FromBody] Owner ownerToPut)
         {
-            if (id < 1 || id != ownerToPut.OwnerId)
+            if (id < 1)
             {
-                return BadRequest("Parameter OwnerId and ownerToPut.OwnerId do not match, or is less than 1");
+                return StatusCode(500, "Request Failed - Owner id must be greater than zero");
+            }
+            if (id != ownerToPut.OwnerId)
+            {
+                return StatusCode(500, "Parameter OwnerId and ownerToPut.OwnerId do not match");
+            }
+            string error = CheckOwnerInput(ownerToPut);
+            if (!(error == ""))
+            {
+                return StatusCode(500, error);
             }
             Owner ownerToUpdate = _ownerService.UpdateOwner(ownerToPut);
             if (ownerToUpdate == null)
             {
-                return StatusCode(404, "No owner with id " + id + " was found to delete ");
+                return StatusCode(404, "No owner with id " + id + " was found to update ");
             }
             return StatusCode(202, ownerToUpdate);
         }
@@ -115,8 +118,114 @@ namespace PetShop.RestAPI.Controllers
             {
                 return StatusCode(404, "No owner with id " + id + " was found to delete ");
             }
-            return StatusCode(202, deletedOwner);  // Ok($"Owner with id {id} was deleted"); 
+            return StatusCode(202, deletedOwner);
         }
+
+
+
+        private string CheckOwnerInput(Owner owner)
+        {
+            string error = "";
+            if (string.IsNullOrEmpty(owner.Name))
+            {
+                error = "Request Failed - No owner name supplied";
+            }
+
+            if (string.IsNullOrEmpty(owner.Address))
+            {
+                error = "Request Failed - No owner address supplied";
+            }
+
+            List<Pet> ownersPets = owner.PetsOwned;
+            int count = 0;
+            foreach (var pet in ownersPets)
+            {
+                count++;
+                Pet petFromDB = _petService.FindPetById(pet.PetId);
+
+                if (petFromDB == null)
+                {
+                    error = "Request Failed - Pet id supplied does not exist for owned pet number " + count;
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(pet.Name))
+                    {
+                        error = "Request Failed - No pet name supplied for owned pet number " + count;
+                    }
+
+                    PetType petType = _petTypeService.FindPetTypeById(pet.Type.PetTypeId);
+                    if (petType == null)
+                    {
+                        error = "Request Failed - Pet type Id supplied does not exist for owned pet number " + count;
+                    }
+                    else {
+                        if (pet.Type.Name != petType.Name)
+                        {
+                            error = "Request Failed - Pet type name supplied for owned pet number " + count + " is different from the name of this pet type. Please correct the name or id to match a valid pet type";
+                        }
+
+                        if (pet.Type.Name == "")
+                        {
+                            error = "Request Failed - Pet type name not supplied for owned pet number " + count;
+                        }
+                    }
+                    if (string.IsNullOrEmpty(pet.Colour))
+                    {
+                        error = "Request Failed - No pet colour supplied for owned pet number " + count;
+                    }
+
+                    if (pet.BirthDate < DateTime.Now.AddYears(-275))
+                    {
+                        error = "Request Failed - Birthdate is more than 275 years ago for owned pet number " + count + ". Henry the Tortoise is the oldest living animal at 275 years, so if this pet is older than that, you should contact the Guiness Book of Records";
+                    }
+
+                    if (pet.BirthDate > DateTime.Now.AddDays(1))
+                    {
+                        error = "Request Failed - Birthdate for owned pet number " + count + " is in the future";
+                    }
+
+                    if (pet.Price < 0)
+                    {
+                        error = "Request Failed - What? Are you going to pay someone to take owned pet number " + count + " away? Sounds like a terrible pet";
+                    }
+
+                    if (pet.SoldDate < DateTime.Now.AddYears(-100))
+                    {
+                        error = "Request Failed - Sold date for owned pet number " + count + " is more than 100 years ago. If it was over a hundred years ago... who cares?";
+                    }
+
+                    if (pet.SoldDate > DateTime.Now.AddDays(1))
+                    {
+                        error = "Request Failed - Sold date for owned pet number " + count + " is in the future";
+                    }
+
+                    if (pet.SoldDate < pet.BirthDate)
+                    {
+                        error = "Request Failed - Sold date for owned pet number " + count + " is before it's birthdate";
+                    }
+
+                    /*  Owner previousOwner = _ownerService.FindOwnerById(pet.PreviousOwner.OwnerId);
+                    if (pet.PreviousOwner == null)
+                    {
+                        error = "Request Failed - Previous owner of pet number " + count + " must be null";
+                    }
+    /*
+                         if ((previousOwner != null) && (pet.PreviousOwner.Name != previousOwner.Name))
+                         {
+                             error = "Request Failed - Name of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
+                         }
+
+                         if ((previousOwner != null) && (pet.PreviousOwner.Address != previousOwner.Address))
+                         {
+                             error = "Request Failed - Address of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
+                         }
+                    */
+                }
+            }
+            return error;
+        }
+
 
     }
 }
