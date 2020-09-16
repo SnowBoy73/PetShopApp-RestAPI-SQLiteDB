@@ -46,7 +46,7 @@ namespace PetShop.RestAPI.Controllers
         {
             if (id < 1)
             {
-                return BadRequest("Request Failed - Id must be greater than zero");
+                return StatusCode(500, "Request Failed - Id must be greater than zero");
             }
         PetType petTypeToGet = _petTypeService.FindPetTypeById(id);
             if (petTypeToGet == null)
@@ -64,13 +64,21 @@ namespace PetShop.RestAPI.Controllers
         {
             if (string.IsNullOrEmpty(petTypeToPost.Name))
             {
-                return BadRequest("No name of pet type supplied");
+                StatusCode(500, "No name of pet type supplied");
+            }
+            List<PetType> allPetTypes = _petTypeService.GetAllPetTypes();
+            foreach (var petType in allPetTypes)
+            {
+                if (petType.Name == petTypeToPost.Name)
+                {
+                    return StatusCode(500, "This pet type with name " + petType.Name + " already exists with an id of " + petType.PetTypeId);
+                }
             }
             PetType petTypeToCreate = _petTypeService.CreatePetType(petTypeToPost);
-            if (petTypeToCreate == null)
+         /*   if (petTypeToCreate == null)
             {
                 return StatusCode(500, "Unable to create this pet type");
-            }
+            }*/
             return StatusCode(201, petTypeToCreate);
         }
 
@@ -80,10 +88,16 @@ namespace PetShop.RestAPI.Controllers
         [HttpPut("{id}")]
         public ActionResult<PetType> Put(int id, [FromBody] PetType petTypeToPut)
         {
-            if (id < 1 || id != petTypeToPut.PetTypeId)
+            if (id < 1)
             {
-                return BadRequest("Parameter PetTypeId and PetTypeToPut.OwnerId do not match, or is less than 1");
+                return StatusCode(500, "Request Failed - Pet type id is less than 1");
             }
+
+            if (id != petTypeToPut.PetTypeId)
+            {
+                return StatusCode(500, "Request Failed - Pet type id from header and Pet type id from JSON body do not match");
+            }
+
             PetType petTypeToUpdate = _petTypeService.UpdatePetType(petTypeToPut);
             if (petTypeToUpdate == null)
             {
@@ -104,8 +118,9 @@ namespace PetShop.RestAPI.Controllers
             {
                 return StatusCode(404, "No owner with id " + id + " was found to delete ");
             }
-            return StatusCode(202, deletedPetType);  // Ok($"Pet Type with id {id} was deleted"); 
+            return StatusCode(202, deletedPetType); 
         }
+
 
     }
 }

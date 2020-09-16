@@ -91,7 +91,7 @@ namespace PetShop.RestAPI.Controllers
             }
             if (id != petToPut.PetId)
             {
-                return StatusCode(500, "Parameter PetId and petToPut.PetId do not match");
+                return StatusCode(500, "Request Failed - Pet id from header and Pet id from JSON body do not match");
             }
             string error = CheckPetInput(petToPut);
             if (!(error == ""))

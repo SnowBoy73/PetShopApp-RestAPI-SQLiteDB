@@ -91,7 +91,7 @@ namespace PetShop.RestAPI.Controllers
             }
             if (id != ownerToPut.OwnerId)
             {
-                return StatusCode(500, "Parameter OwnerId and ownerToPut.OwnerId do not match");
+                return StatusCode(500, "Request Failed - Owner id from header and owner id from JSON body do not match");
             }
             string error = CheckOwnerInput(ownerToPut);
             if (!(error == ""))
