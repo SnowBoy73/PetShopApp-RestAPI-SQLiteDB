@@ -29,17 +29,53 @@ namespace PetShop.RestAPI.Controllers
 
 
         // GET: api/pets
+        /*     [HttpGet]
+             public ActionResult<List<Pet>> Get()
+             {
+                 IEnumerable<Pet> allPetsENUM = _petService.GetAllPets();
+                 List<Pet> allPets = allPetsENUM.ToList();
+                 if (allPets.Count == 0)
+                 {
+                     return StatusCode(500, "There are no pets in the pet shop");
+                 }
+                 return StatusCode(200, allPets);
+
+             }
+        */
+
+        // GET api/search
         [HttpGet]
-        public ActionResult<List<Pet>> Get()
+        public ActionResult<List<Pet>> Get([FromQuery] string prop, string val)//Filter filter)  //string prop, string val)
         {
-            IEnumerable<Pet> allPetsENUM = _petService.GetAllPets();
-            List<Pet> allPets = allPetsENUM.ToList();
-            if (allPets.Count == 0)
-            {
-                return StatusCode(500, "There are no pets in the pet shop");
+            if (prop != null)
+            { //searchedPets = null;
+                Filter filter = new Filter();
+                string property = filter.Property.ToLower();
+                string value = filter.Value.ToLower();
+                filter.Property = property;
+                filter.Value = value;
+                double priceCheck;
+                if (!double.TryParse(filter.Value, out priceCheck))
+                {
+                    return StatusCode(500, "Request Failed - Price given is not a number");
+                }
+                if ((property == "name") || (property == "name") || (property == "colour") || (property == "price") || (property == "previousowner"))
+                //  if (property.Equals("name") ||)
+                {
+                    List<Pet> searchedPets = _petService.FindPetsByProperty(filter);
+                    if (searchedPets == null)
+                    {
+                        return StatusCode(404, "No pet with the " + filter.Property + " '" + filter.Value + "' was  found");
+                    }
+                    return StatusCode(200, searchedPets);
+                }
+                else
+                {
+                    return StatusCode(500, "No pet with the " + property + " '" + value + "' was  found");
+                }
+
             }
-            return StatusCode(200, allPets);
-    
+            return StatusCode(205, null);
         }
 
 

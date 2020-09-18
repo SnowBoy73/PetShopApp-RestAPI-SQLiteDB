@@ -28,7 +28,7 @@ namespace PetShop.RestAPI.Controllers
 
 
         // GET api/search
-        [HttpGet ("{ property}, {value}")]
+        [HttpGet ("{property}, {value}")]
         public ActionResult<List<Pet>> Get([FromQuery] string prop, string val)
         {
             //searchedPets = null;
