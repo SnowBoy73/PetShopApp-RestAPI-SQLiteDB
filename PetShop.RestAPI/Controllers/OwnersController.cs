@@ -209,22 +209,24 @@ namespace PetShop.RestAPI.Controllers
                         error = "Request Failed - Sold date for owned pet number " + count + " is before it's birthdate";
                     }
 
-                    /*  Owner previousOwner = _ownerService.FindOwnerById(pet.PreviousOwner.OwnerId);
+                    Owner previousOwner = _ownerService.FindOwnerById(pet.PreviousOwner.OwnerId);
                     if (pet.PreviousOwner == null)
                     {
-                        error = "Request Failed - Previous owner of pet number " + count + " must be null";
+                        error = "Request Failed - Pet number " + count + " has no previous owner";
                     }
-    /*
-                         if ((previousOwner != null) && (pet.PreviousOwner.Name != previousOwner.Name))
-                         {
-                             error = "Request Failed - Name of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
-                         }
+                    else
+                    {
+                        if (pet.PreviousOwner.Name != previousOwner.Name)
+                        {
+                            error = "Request Failed - Name of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
+                        }
 
-                         if ((previousOwner != null) && (pet.PreviousOwner.Address != previousOwner.Address))
-                         {
-                             error = "Request Failed - Address of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
-                         }
-                    */
+                        if (pet.PreviousOwner.Address != previousOwner.Address)
+                        {
+                            error = "Request Failed - Address of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
+                        }
+                    }
+                    
                 }
             }
             return error;

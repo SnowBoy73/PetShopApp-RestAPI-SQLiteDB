@@ -30,7 +30,7 @@ namespace PetShop.RestAPI.Controllers
 
         // GET: api/pets
         [HttpGet]
-        public ActionResult<List<Pet>> Get(/*[FromQuery] string orderDir*/)
+        public ActionResult<List<Pet>> Get()
         {
             IEnumerable<Pet> allPetsENUM = _petService.GetAllPets();
             List<Pet> allPets = allPetsENUM.ToList();
@@ -39,6 +39,7 @@ namespace PetShop.RestAPI.Controllers
                 return StatusCode(500, "There are no pets in the pet shop");
             }
             return StatusCode(200, allPets);
+    
         }
 
 
@@ -61,40 +62,6 @@ namespace PetShop.RestAPI.Controllers
 
 
 
-        // GET api/pets/search
-        [HttpGet("{Property, Value}")]
-        public ActionResult<List<Pet>> Search([FromQuery] string prop, string val)
-        {
-            //searchedPets = null;
-            Filter filter = new Filter();
-            string property = prop.ToLower();
-            string value = val.ToLower();
-            filter.Property = property;
-            filter.Value = value;
-            double priceCheck;
-            if (!double.TryParse(val, out priceCheck))
-            {
-                return StatusCode(500, "Request Failed - Price given is not a number");
-            }
-            if ((property == "name") || (property == "name") || (property == "colour") || (property == "price") || (property == "previousowner"))
-            //  if (property.Equals("name") ||)
-            {
-                List<Pet> searchedPets = _petService.FindPetsByProperty(filter);
-                if (searchedPets == null)
-                {
-                    return StatusCode(404, "No pet with the " + property + " '" + val + "' was  found");
-                }
-                return StatusCode(200, searchedPets);
-            }
-            else
-            {
-                return StatusCode(500, "No pet with the " + property + " '" + value + "' was  found");
-            }
-
-        }
-
-
-
         // POST api/pets
         [HttpPost]  // NOT essential. Only needed if we change this methods name from "Post", and then it tells the system this is the POST method. Needed if sending parameters
         public ActionResult<Pet> Post([FromBody] Pet petToPost)
@@ -104,12 +71,8 @@ namespace PetShop.RestAPI.Controllers
             {
                 return StatusCode(500, error);
             }
+            
             Pet petToCreate = _petService.CreatePet(petToPost);
-          /*  if (petToCreate == null)
-            {
-                return StatusCode(404, "Unable to create this pet");
-            }
-          */
             return StatusCode(201, petToCreate);
         }
 
@@ -201,7 +164,7 @@ namespace PetShop.RestAPI.Controllers
             {
                 error = "Request Failed - What? Are you going to pay someone to take the pet away? Sounds like a terrible pet";
             }
-           
+
             if (pet.SoldDate < DateTime.Now.AddYears(-100))
             {
                 error = "Request Failed - Sold date is more than 100 years ago. If it was over a hundred years ago... who cares?";
@@ -222,17 +185,18 @@ namespace PetShop.RestAPI.Controllers
             {
                 error = "Request Failed - Previous owner Id supplied does not exist";
             }
-
-            if ((previousOwner != null) && (pet.PreviousOwner.Name != previousOwner.Name))
+            else
             {
-                error = "Request Failed - Name of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
-            }
+                if (pet.PreviousOwner.Name != previousOwner.Name)
+                {
+                    error = "Request Failed - Name of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
+                }
 
-            if ((previousOwner != null) && (pet.PreviousOwner.Address != previousOwner.Address))
-            {
-                error = "Request Failed - Address of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
+                if (pet.PreviousOwner.Address != previousOwner.Address)
+                {
+                    error = "Request Failed - Address of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
+                }
             }
-
             return error;
         }
     }

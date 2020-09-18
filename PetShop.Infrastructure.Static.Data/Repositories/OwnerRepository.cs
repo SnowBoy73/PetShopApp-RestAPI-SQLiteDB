@@ -41,15 +41,6 @@ namespace PetShop.Infrastructure.Data.Repositories
                 Name = o.Name,
                 Address = o.Address
             }).FirstOrDefault(o => o.OwnerId == id);
-        /*    foreach (var owner in _owners)
-            {
-                if (owner.OwnerId == id)
-                {
-                    return owner;
-                }
-            }
-            return null;
-        */
         }
 
 
