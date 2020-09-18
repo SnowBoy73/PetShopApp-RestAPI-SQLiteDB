@@ -54,9 +54,43 @@ namespace PetShop.RestAPI.Controllers
             Pet petToGet = _petService.FindPetById(id);
             if (petToGet == null)
             {
-                return StatusCode(404, "No pet with id " + id + " was not found");
+                return StatusCode(404, "No pet with id " + id + " was found");
             }
             return StatusCode(200, petToGet);
+        }
+
+
+
+        // GET api/pets/search
+        [HttpGet("{Property, Value}")]
+        public ActionResult<List<Pet>> Search([FromQuery] string prop, string val)
+        {
+            //searchedPets = null;
+            Filter filter = new Filter();
+            string property = prop.ToLower();
+            string value = val.ToLower();
+            filter.Property = property;
+            filter.Value = value;
+            double priceCheck;
+            if (!double.TryParse(val, out priceCheck))
+            {
+                return StatusCode(500, "Request Failed - Price given is not a number");
+            }
+            if ((property == "name") || (property == "name") || (property == "colour") || (property == "price") || (property == "previousowner"))
+            //  if (property.Equals("name") ||)
+            {
+                List<Pet> searchedPets = _petService.FindPetsByProperty(filter);
+                if (searchedPets == null)
+                {
+                    return StatusCode(404, "No pet with the " + property + " '" + val + "' was  found");
+                }
+                return StatusCode(200, searchedPets);
+            }
+            else
+            {
+                return StatusCode(500, "No pet with the " + property + " '" + value + "' was  found");
+            }
+
         }
 
 
@@ -101,7 +135,7 @@ namespace PetShop.RestAPI.Controllers
             Pet petToUpdate  = _petService.UpdatePet(petToPut);
             if (petToUpdate == null)
             {
-                return StatusCode(404, "No pet with id " + id + " was not found to update");
+                return StatusCode(404, "No pet with id " + id + " was found to update");
             }
             return StatusCode(202, petToUpdate);
         }
@@ -116,7 +150,7 @@ namespace PetShop.RestAPI.Controllers
             deletedPet = _petService.DeletePet(id);
             if (deletedPet == null)
             {
-                return StatusCode(404, "No pet with id " + id + " was not found to delete");
+                return StatusCode(404, "No pet with id " + id + " was found to delete");
             }
             return StatusCode(202, deletedPet);
         }

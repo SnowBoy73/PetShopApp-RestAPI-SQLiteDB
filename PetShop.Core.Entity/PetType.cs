@@ -6,6 +6,5 @@ namespace PetShop.Core.Entity
     {
         public int PetTypeId { get; set; }
         public string Name { get; set; }
-       // public string SubType { get; set; }
     }
 }

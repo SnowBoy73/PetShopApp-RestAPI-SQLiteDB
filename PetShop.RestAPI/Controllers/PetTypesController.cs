@@ -101,7 +101,7 @@ namespace PetShop.RestAPI.Controllers
             PetType petTypeToUpdate = _petTypeService.UpdatePetType(petTypeToPut);
             if (petTypeToUpdate == null)
             {
-                return StatusCode(404, "No pet type with id " + id + " was found to delete ");
+                return StatusCode(404, "No pet type with id " + id + " was found to update ");
             }
             return StatusCode(202, petTypeToUpdate);
         }

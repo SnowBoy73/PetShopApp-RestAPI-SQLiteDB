@@ -22,7 +22,6 @@ namespace PetShop.Core.ApplicationService.Impl
             {
                 Name = name,
                 Type = type,
-                //         Gender = gender,
                 BirthDate = birthDate,
                 SoldDate = soldDate,
                 Colour = colour,
@@ -44,32 +43,30 @@ namespace PetShop.Core.ApplicationService.Impl
         }
 
 
-        public List<Pet> FindPetsByProperty(string prop, string searchValue)
+        public List<Pet> FindPetsByProperty(Filter filter)  //string prop, string searchValue)
         {
-            IEnumerable<Pet> query;
+            IEnumerable<Pet> result;
             var list = _petRepo.ReadAllPets();
-            switch (prop)
+            switch (filter.Property)
             {
-                case "1":
-                    query = list.Where(pet => pet.Name.ToLower().Contains(searchValue.ToLower()));
-                    return query.ToList(); ;
+                case "name":
+                    result = list.Where(pet => pet.Name.Contains(filter.Value));
+                    return result.ToList(); ;
 
-                case "2":
-                    //   query = list.Where(pet => pet.Type.ToLower().Contains(searchValue.ToLower()));
-                    return null; //query.ToList(); ;
+                case "colour":
+                    result = list.Where(pet => pet.Colour.Contains(filter.Value));
+                    return result.ToList();
 
-                case "3":
-                    if (searchValue == "Y" || searchValue == "y")
-                        query = list.OrderBy(pet => pet.Price);
-                    else
-                        query = list.OrderBy(pet => pet.Price).Reverse();
-                    return query.ToList();
+                case "price":
+                    double priceDouble = Convert.ToDouble(filter.Value);
+                    result = list.Where(pet => pet.Price <= priceDouble);
+                    return result.ToList();
 
-                default:
-                    Console.WriteLine("That is not a valid property");  // Shouldn't happen, alresdy exceptioned
-                   break;
+                case "previouowner":
+                    result = list.Where(pet => pet.PreviousOwner.Name.Contains(filter.Value));
+                    return result.ToList();
             }
-            return null;
+            return null;    // Should never happen
         }
 
 
@@ -92,7 +89,6 @@ namespace PetShop.Core.ApplicationService.Impl
             {
                 updatedPet.Name = petUpdate.Name;
                 updatedPet.Type = petUpdate.Type;
-                //     updatedPet.Gender = gender;
                 updatedPet.Colour = petUpdate.Colour;
                 updatedPet.BirthDate = petUpdate.BirthDate;
                 updatedPet.Price = petUpdate.Price;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using PetShop.Core.DomainService;
 using PetShop.Core.Entity;
+using System.Linq;
 
 namespace PetShop.Infrastructure.Data.Repositories
 {
@@ -12,14 +13,7 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public OwnerRepository()
         {
-         /*   Owner owner2 = new Owner()
-            {
-                Name = "ruff Allen",
-                Address = "Planet Gong",
-                PetsOwned = null,
-                //  PetsOwned.Add(test) // { PetId = 11 })  //null // { pet10 }
-            };
-         */
+         
         }
 
 
@@ -41,7 +35,13 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Owner ReadById(int id)
         {
-            foreach (var owner in _owners)
+            return _owners.Select(o => new Owner()
+            {
+                OwnerId = o.OwnerId,
+                Name = o.Name,
+                Address = o.Address
+            }).FirstOrDefault(o => o.OwnerId == id);
+        /*    foreach (var owner in _owners)
             {
                 if (owner.OwnerId == id)
                 {
@@ -49,6 +49,7 @@ namespace PetShop.Infrastructure.Data.Repositories
                 }
             }
             return null;
+        */
         }
 
 

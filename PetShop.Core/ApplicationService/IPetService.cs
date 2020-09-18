@@ -7,7 +7,7 @@ namespace PetShop.Core.ApplicationService
     public interface IPetService
     {
         // New Pet
-        Pet NewPet(string name, PetType type, /*gender*/ string colour, DateTime birthDate, double price, DateTime soldDate, Owner previousOwner);
+        Pet NewPet(string name, PetType type, string colour, DateTime birthDate, double price, DateTime soldDate, Owner previousOwner);
 
         // Create
         Pet CreatePet(Pet createdPet);
@@ -15,7 +15,7 @@ namespace PetShop.Core.ApplicationService
         // Read
         Pet FindPetById(int id);
         List<Pet> GetAllPets();
-        List<Pet> FindPetsByProperty(string prop, string searchValue);
+        List<Pet> FindPetsByProperty(Filter filter);
 
         // Update
         Pet UpdatePet(Pet petUpdate);
