@@ -48,7 +48,11 @@ namespace PetShop.RestAPI.Controllers
         public ActionResult<List<Pet>> Get([FromQuery] string prop, string val)//Filter filter)
         {
             if (prop != null)
-            { 
+            {
+                if (val == null)
+                {
+                    return StatusCode(500, "Request Failed - no value provided for search");
+                }
                 Filter filter = new Filter();
                 string property = prop.ToLower();
                 string value = val.ToLower();
