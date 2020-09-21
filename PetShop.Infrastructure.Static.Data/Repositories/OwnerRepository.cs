@@ -35,12 +35,14 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Owner ReadById(int id)
         {
-            return _owners.Select(o => new Owner()
+            foreach (var owner in _owners)
             {
-                OwnerId = o.OwnerId,
-                Name = o.Name,
-                Address = o.Address
-            }).FirstOrDefault(o => o.OwnerId == id);
+                if (owner.OwnerId == id)
+                {
+                    return owner;
+                }
+            }
+            return null;
         }
 
 
