@@ -165,6 +165,7 @@ namespace PetShop.RestAPI.Controllers
 
 
 
+        // Run check to ensure Owner input is valid
         private string CheckOwnerInput(Owner owner)
         {
             string error = "";

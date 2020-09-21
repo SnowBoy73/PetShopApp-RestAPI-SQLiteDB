@@ -14,7 +14,7 @@ namespace PetShop.RestAPI.Controllers
     [ApiController]
     public class PetTypesController : Controller
     {
-        
+
         private readonly IPetTypeService _petTypeService;
 
 
@@ -26,7 +26,7 @@ namespace PetShop.RestAPI.Controllers
 
 
         // GET: api/petTypes
-    //    [HttpGet]
+        //    [HttpGet]
         /*     public ActionResult<List<PetType>> Get()
              {
                  IEnumerable<PetType> allPetTypesENUM = _petTypeService.GetAllPetTypes();
@@ -90,7 +90,7 @@ namespace PetShop.RestAPI.Controllers
             {
                 return StatusCode(500, "Request Failed - Id must be greater than zero");
             }
-        PetType petTypeToGet = _petTypeService.FindPetTypeById(id);
+            PetType petTypeToGet = _petTypeService.FindPetTypeById(id);
             if (petTypeToGet == null)
             {
                 return StatusCode(404, "Request Failed - Unable to find this pet type");
@@ -106,7 +106,7 @@ namespace PetShop.RestAPI.Controllers
         {
             if (string.IsNullOrEmpty(petTypeToPost.Name))
             {
-                StatusCode(500, "No name of pet type supplied");
+                return StatusCode(500, "No name of pet type supplied");
             }
             List<PetType> allPetTypes = _petTypeService.GetAllPetTypes();
             foreach (var petType in allPetTypes)
@@ -117,10 +117,6 @@ namespace PetShop.RestAPI.Controllers
                 }
             }
             PetType petTypeToCreate = _petTypeService.CreatePetType(petTypeToPost);
-         /*   if (petTypeToCreate == null)
-            {
-                return StatusCode(500, "Unable to create this pet type");
-            }*/
             return StatusCode(201, petTypeToCreate);
         }
 
@@ -139,7 +135,10 @@ namespace PetShop.RestAPI.Controllers
             {
                 return StatusCode(500, "Request Failed - Pet type id from header and Pet type id from JSON body do not match");
             }
-
+            if (string.IsNullOrEmpty(petTypeToPut.Name))
+            {
+                return StatusCode(500, "No name of pet type supplied");
+            }
             PetType petTypeToUpdate = _petTypeService.UpdatePetType(petTypeToPut);
             if (petTypeToUpdate == null)
             {
@@ -160,7 +159,7 @@ namespace PetShop.RestAPI.Controllers
             {
                 return StatusCode(404, "No owner with id " + id + " was found to delete ");
             }
-            return StatusCode(202, deletedPetType); 
+            return StatusCode(202, deletedPetType);
         }
 
 

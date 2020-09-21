@@ -167,7 +167,7 @@ namespace PetShop.RestAPI.Controllers
         }
 
 
-
+        // Run check to ensure Pet input is valid
         private string CheckPetInput(Pet pet)
         {
             string error = "";
