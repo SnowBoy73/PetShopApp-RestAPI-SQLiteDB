@@ -180,96 +180,100 @@ namespace PetShop.RestAPI.Controllers
             }
 
             List<Pet> ownersPets = owner.PetsOwned;
-            int count = 0;
-            foreach (var pet in ownersPets)
+            if (ownersPets != null)
             {
-                count++;
-                Pet petFromDB = _petService.FindPetById(pet.PetId);
-
-                if (petFromDB == null)
+                int count = 0;
+                foreach (var pet in ownersPets)
                 {
-                    error = "Request Failed - Pet id supplied does not exist for owned pet number " + count;
-                }
-                else
-                {
-                    if ((pet.PetId != petFromDB.PetId) || (pet.Name != petFromDB.Name) || (pet.Colour != petFromDB.Colour) || (pet.BirthDate != petFromDB.BirthDate) || (pet.Price != petFromDB.Price) || (pet.SoldDate != petFromDB.SoldDate))
-                    {
-                        error = "Request Failed - Pet details supplied for owned pet number " + count + " is different from the details of the pet in the database with id " + pet.PetId + ". Please correct the pets details or id to match a valid pet";
-                    }
-                    if (string.IsNullOrEmpty(pet.Name))
-                    {
-                        error = "Request Failed - No pet name supplied for owned pet number " + count;
-                    }
+                    count++;
+                    Pet petFromDB = _petService.FindPetById(pet.PetId);
 
-                    PetType petType = _petTypeService.FindPetTypeById(pet.Type.PetTypeId);
-                    if (petType == null)
+                    if (petFromDB == null)
                     {
-                        error = "Request Failed - Pet type Id supplied does not exist for owned pet number " + count;
-                    }
-                    else {
-                        if (pet.Type.Name != petType.Name)
-                        {
-                            error = "Request Failed - Pet type name supplied for owned pet number " + count + " is different from the name of this pet type. Please correct the name or id to match a valid pet type";
-                        }
-
-                        if (pet.Type.Name == "")
-                        {
-                            error = "Request Failed - Pet type name not supplied for owned pet number " + count;
-                        }
-                    }
-                    if (string.IsNullOrEmpty(pet.Colour))
-                    {
-                        error = "Request Failed - No pet colour supplied for owned pet number " + count;
-                    }
-
-                    if (pet.BirthDate < DateTime.Now.AddYears(-275))
-                    {
-                        error = "Request Failed - Birthdate is more than 275 years ago for owned pet number " + count + ". Henry the Tortoise is the oldest living animal at 275 years, so if this pet is older than that, you should contact the Guiness Book of Records";
-                    }
-
-                    if (pet.BirthDate > DateTime.Now.AddDays(1))
-                    {
-                        error = "Request Failed - Birthdate for owned pet number " + count + " is in the future";
-                    }
-
-                    if (pet.Price < 0)
-                    {
-                        error = "Request Failed - What? Are you going to pay someone to take owned pet number " + count + " away? Sounds like a terrible pet";
-                    }
-
-                    if (pet.SoldDate < DateTime.Now.AddYears(-100))
-                    {
-                        error = "Request Failed - Sold date for owned pet number " + count + " is more than 100 years ago. If it was over a hundred years ago... who cares?";
-                    }
-
-                    if (pet.SoldDate > DateTime.Now.AddDays(1))
-                    {
-                        error = "Request Failed - Sold date for owned pet number " + count + " is in the future";
-                    }
-
-                    if (pet.SoldDate < pet.BirthDate)
-                    {
-                        error = "Request Failed - Sold date for owned pet number " + count + " is before it's birthdate";
-                    }
-
-                    Owner previousOwner = _ownerService.FindOwnerById(pet.PreviousOwner.OwnerId);
-                    if (pet.PreviousOwner == null)
-                    {
-                        error = "Request Failed - Pet number " + count + " has no previous owner";
+                        error = "Request Failed - Pet id supplied does not exist for owned pet number " + count;
                     }
                     else
                     {
-                        if (pet.PreviousOwner.Name != previousOwner.Name)
+                        if ((pet.PetId != petFromDB.PetId) || (pet.Name != petFromDB.Name) || (pet.Colour != petFromDB.Colour) || (pet.BirthDate != petFromDB.BirthDate) || (pet.Price != petFromDB.Price) || (pet.SoldDate != petFromDB.SoldDate))
                         {
-                            error = "Request Failed - Name of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
+                            error = "Request Failed - Pet details supplied for owned pet number " + count + " is different from the details of the pet in the database with id " + pet.PetId + ". Please correct the pets details or id to match a valid pet";
+                        }
+                        if (string.IsNullOrEmpty(pet.Name))
+                        {
+                            error = "Request Failed - No pet name supplied for owned pet number " + count;
                         }
 
-                        if (pet.PreviousOwner.Address != previousOwner.Address)
+                        PetType petType = _petTypeService.FindPetTypeById(pet.Type.PetTypeId);
+                        if (petType == null)
                         {
-                            error = "Request Failed - Address of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
+                            error = "Request Failed - Pet type Id supplied does not exist for owned pet number " + count;
                         }
+                        else
+                        {
+                            if (pet.Type.Name != petType.Name)
+                            {
+                                error = "Request Failed - Pet type name supplied for owned pet number " + count + " is different from the name of this pet type. Please correct the name or id to match a valid pet type";
+                            }
+
+                            if (pet.Type.Name == "")
+                            {
+                                error = "Request Failed - Pet type name not supplied for owned pet number " + count;
+                            }
+                        }
+                        if (string.IsNullOrEmpty(pet.Colour))
+                        {
+                            error = "Request Failed - No pet colour supplied for owned pet number " + count;
+                        }
+
+                        if (pet.BirthDate < DateTime.Now.AddYears(-275))
+                        {
+                            error = "Request Failed - Birthdate is more than 275 years ago for owned pet number " + count + ". Henry the Tortoise is the oldest living animal at 275 years, so if this pet is older than that, you should contact the Guiness Book of Records";
+                        }
+
+                        if (pet.BirthDate > DateTime.Now.AddDays(1))
+                        {
+                            error = "Request Failed - Birthdate for owned pet number " + count + " is in the future";
+                        }
+
+                        if (pet.Price < 0)
+                        {
+                            error = "Request Failed - What? Are you going to pay someone to take owned pet number " + count + " away? Sounds like a terrible pet";
+                        }
+
+                        if (pet.SoldDate < DateTime.Now.AddYears(-100))
+                        {
+                            error = "Request Failed - Sold date for owned pet number " + count + " is more than 100 years ago. If it was over a hundred years ago... who cares?";
+                        }
+
+                        if (pet.SoldDate > DateTime.Now.AddDays(1))
+                        {
+                            error = "Request Failed - Sold date for owned pet number " + count + " is in the future";
+                        }
+
+                        if (pet.SoldDate < pet.BirthDate)
+                        {
+                            error = "Request Failed - Sold date for owned pet number " + count + " is before it's birthdate";
+                        }
+
+                        Owner previousOwner = _ownerService.FindOwnerById(pet.PreviousOwner.OwnerId);
+                        if (pet.PreviousOwner == null)
+                        {
+                            error = "Request Failed - Pet number " + count + " has no previous owner";
+                        }
+                        else
+                        {
+                            if (pet.PreviousOwner.Name != previousOwner.Name)
+                            {
+                                error = "Request Failed - Name of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
+                            }
+
+                            if (pet.PreviousOwner.Address != previousOwner.Address)
+                            {
+                                error = "Request Failed - Address of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
+                            }
+                        }
+
                     }
-                    
                 }
             }
             return error;
