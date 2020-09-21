@@ -50,11 +50,11 @@ namespace PetShop.Core.ApplicationService.Impl
             switch (filter.Property)
             {
                 case "name":
-                    result = list.Where(pet => pet.Name.Contains(filter.Value));
+                    result = list.Where(pet => pet.Name.ToLower().Contains(filter.Value));
                     return result.ToList(); ;
 
                 case "colour":
-                    result = list.Where(pet => pet.Colour.Contains(filter.Value));
+                    result = list.Where(pet => pet.Colour.ToLower().Contains(filter.Value));
                     return result.ToList();
 
                 case "price":
@@ -62,8 +62,8 @@ namespace PetShop.Core.ApplicationService.Impl
                     result = list.Where(pet => pet.Price <= priceDouble);
                     return result.ToList();
 
-                case "previouowner":
-                    result = list.Where(pet => pet.PreviousOwner.Name.Contains(filter.Value));
+                case "previousowner":
+                    result = list.Where(pet => pet.PreviousOwner.Name.ToLower().Contains(filter.Value));
                     return result.ToList();
             }
             return null;    // Should never happen
