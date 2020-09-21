@@ -26,16 +26,54 @@ namespace PetShop.RestAPI.Controllers
 
 
         // GET: api/petTypes
+    //    [HttpGet]
+        /*     public ActionResult<List<PetType>> Get()
+             {
+                 IEnumerable<PetType> allPetTypesENUM = _petTypeService.GetAllPetTypes();
+                 List<PetType> allPetTypes = allPetTypesENUM.ToList();
+                 if (allPetTypes.Count == 0)
+                 {
+                     return StatusCode(500, "There are no pet types in the pet types list");
+                 }
+                 return StatusCode(200, allPetTypes);
+             }
+        */
+
+
+        // GET api/pets
         [HttpGet]
-        public ActionResult<List<PetType>> Get(/*[FromQuery] string orderDir*/)
+        public ActionResult<List<PetType>> Get([FromQuery] string prop, string val)//Filter filter) 
         {
-            IEnumerable<PetType> allPetTypesENUM = _petTypeService.GetAllPetTypes();
-            List<PetType> allPetTypes = allPetTypesENUM.ToList();
-            if (allPetTypes.Count == 0)
+            if (prop != null)
             {
-                return StatusCode(500, "There are no pet types in the pet types list");
+                Filter filter = new Filter();
+                string property = prop.ToLower();
+                string value = val.ToLower();
+                filter.Property = property;
+                filter.Value = value;
+
+                if (property == "name")
+                {
+                    List<PetType> searchedPetTypes = _petTypeService.FindPetTypesByProperty(filter);
+                    if (searchedPetTypes.Count == 0)
+                    {
+                        return StatusCode(404, "No pet type with the " + filter.Property + " '" + filter.Value + "' was  found");
+                    }
+                    else
+                    {
+                        return StatusCode(200, searchedPetTypes);
+                    }
+                }
+                else
+                {
+                    return StatusCode(500, "Request Failed - The pet type property '" + property + "' does not exist");
+                }
+
             }
-            return StatusCode(200, allPetTypes);
+            else
+            {
+                return StatusCode(200, _petTypeService.GetAllPetTypes());
+            }
         }
 
 

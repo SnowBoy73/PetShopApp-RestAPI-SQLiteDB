@@ -18,6 +18,7 @@ namespace PetShop.Core.ApplicationService.Impl
         }
 
 
+
         public Owner NewOwner(string name, string address, List<Pet> petsOwned)
         {
             var newOwner = new Owner()
@@ -30,16 +31,19 @@ namespace PetShop.Core.ApplicationService.Impl
         }
 
 
+
         public Owner CreateOwner(Owner createdOwner)
         {
             return _ownerRepo.CreateOwner(createdOwner);
         }
 
 
+
         public Owner FindOwnerById(int id)
         {
             return _ownerRepo.ReadById(id);
         }
+
 
 
         public Owner FindOwnerByIdIncludingPets(int id)
@@ -52,6 +56,7 @@ namespace PetShop.Core.ApplicationService.Impl
             owner.PetsOwned = _petRepo.ReadAllPets().Where(pet => pet.PreviousOwner.OwnerId == owner.OwnerId).ToList();
             return owner;
         }
+
 
 
         public List<Owner> FindOwnersByProperty(Filter filter)

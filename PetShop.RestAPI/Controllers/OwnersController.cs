@@ -48,7 +48,7 @@ namespace PetShop.RestAPI.Controllers
 */
 
 
-          // GET api/pets
+        // GET api/pets
         [HttpGet]
         public ActionResult<List<Owner>> Get([FromQuery] string prop, string val)//Filter filter) 
         {

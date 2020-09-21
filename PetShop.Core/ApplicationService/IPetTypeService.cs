@@ -15,7 +15,7 @@ namespace PetShop.Core.ApplicationService
         // Read
         PetType FindPetTypeById(int id);
         List<PetType> GetAllPetTypes();
-        List<PetType> FindPetTypesByProperty(string prop, string searchValue);
+        List<PetType> FindPetTypesByProperty(Filter filter);
 
         // Update
         PetType UpdatePetType(PetType petTypeUpdate);

@@ -16,6 +16,7 @@ namespace PetShop.Core.ApplicationService.Impl
         }
 
 
+
         public Pet NewPet(string name, PetType type, string colour, DateTime birthDate, double price, DateTime soldDate, Owner previousOwner)
         {
             var newPet = new Pet()
@@ -31,16 +32,20 @@ namespace PetShop.Core.ApplicationService.Impl
             return newPet;
         }
 
+
+
         public Pet CreatePet(Pet createdPet)
         {
             return _petRepo.CreatePet(createdPet);
         }
 
 
+
         public Pet FindPetById(int id)
         {
             return _petRepo.ReadById(id);
         }
+
 
 
         public List<Pet> FindPetsByProperty(Filter filter)

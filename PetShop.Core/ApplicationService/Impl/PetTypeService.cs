@@ -39,34 +39,17 @@ namespace PetShop.Core.ApplicationService.Impl
 
 
 
-         public List<PetType> FindPetTypesByProperty(string prop, string searchValue)
-         {
-            /*
-            IEnumerable<PetType> query;
+         public List<PetType> FindPetTypesByProperty(Filter filter)
+        {
+            IEnumerable<PetType> results;
             var list = _petTypeRepo.ReadAllPetTypes();
-            switch (prop)
+            switch (filter.Property)
             {
-                case "1":
-                    query = list.Where(PetType => PetType.Name.ToLower().Contains(searchValue.ToLower()));
-                    return query.ToList(); ;
-
-                case "2":
-                    query = list.Where(owner => owner.Address.ToLower().Contains(searchValue.ToLower()));
-                    return query.ToList(); ;
-
-                case "3":
-                /*   if (searchValue == "Y" || searchValue == "y")
-                    query = list.OrderBy(pet => pet.Price);
-                else
-                    query = list.OrderBy(pet => pet.Price).Reverse();
-                return query.ToList();
-                */
-            /*         default:
-                        Console.WriteLine("That is not a valid property");  // Shouldn't happen, alresdy exceptioned
-                        break;
-                }
-            */
-                return null;
+                case "name":
+                    results = list.Where(owner => owner.Name.ToLower().Contains(filter.Value));
+                    return results.ToList();
+            }
+            return null;   // Should never happen
         }
 
 
