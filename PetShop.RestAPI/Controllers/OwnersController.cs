@@ -26,16 +26,15 @@ namespace PetShop.RestAPI.Controllers
             _ownerService = ownerService;
             _petService = petService;
             _petTypeService = petTypeService;
-            //   petsController = new PetsController;
         }
 
 
 
         // GET: api/owners
-        [HttpGet]
-        public ActionResult<List<Owner>> Get(/*[FromQuery] string orderDir*/)
+  /*      [HttpGet]
+        public ActionResult<List<Owner>> Get(/*[FromQuery] string orderDir*///)
         //public ActionResult<IEnumerable<string>> Get(/*[FromQuery] string orderDir*/)
-        {
+  /*      {
             IEnumerable<Owner> allOwnersENUM = _ownerService.GetAllOwners();
             List<Owner> allOwners = allOwnersENUM.ToList();
 
@@ -44,6 +43,45 @@ namespace PetShop.RestAPI.Controllers
                 return StatusCode(500, "There are no owners in the owner list");
             }
             return StatusCode(200, allOwners);
+        }
+
+*/
+
+
+          // GET api/pets
+        [HttpGet]
+        public ActionResult<List<Owner>> Get([FromQuery] string prop, string val)//Filter filter) 
+        {
+            if (prop != null)
+            {
+                Filter filter = new Filter();
+                string property = prop.ToLower();
+                string value = val.ToLower();
+                filter.Property = property;
+                filter.Value = value;
+               
+                if ((property == "name") || (property == "address"))
+                {
+                    List<Owner> searchedOwners = _ownerService.FindOwnersByProperty(filter);
+                    if (searchedOwners.Count == 0)
+                    {
+                        return StatusCode(404, "No owner with the " + filter.Property + " '" + filter.Value + "' was  found");
+                    }
+                    else
+                    {
+                        return StatusCode(200, searchedOwners);
+                    }
+                }
+                else
+                {
+                    return StatusCode(500, "Request Failed - The owner property '" + property + "' does not exist");
+                }
+
+            }
+            else
+            {
+                return StatusCode(200, _ownerService.GetAllOwners());
+            }
         }
 
 

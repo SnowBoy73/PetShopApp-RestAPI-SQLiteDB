@@ -45,10 +45,10 @@ namespace PetShop.RestAPI.Controllers
 
         // GET api/pets
         [HttpGet]
-        public ActionResult<List<Pet>> Get([FromQuery] string prop, string val)//Filter filter)  //string prop, string val)
+        public ActionResult<List<Pet>> Get([FromQuery] string prop, string val)//Filter filter)
         {
             if (prop != null)
-            { //searchedPets = null;
+            { 
                 Filter filter = new Filter();
                 string property = prop.ToLower();
                 string value = val.ToLower();
@@ -63,7 +63,6 @@ namespace PetShop.RestAPI.Controllers
                     }
                 }
                 if ((property == "name") || (property == "colour") || (property == "price") || (property == "previousowner"))
-                //  if (property.Equals("name") ||)
                 {
                     List<Pet> searchedPets = _petService.FindPetsByProperty(filter);
                     if (searchedPets.Count == 0)
@@ -77,7 +76,7 @@ namespace PetShop.RestAPI.Controllers
                 }
                 else
                 {
-                    return StatusCode(500, "The pet property '" + property + "' does not exist");
+                    return StatusCode(500, "Request Failed - The pet property '" + property + "' does not exist");
                 }
 
             }

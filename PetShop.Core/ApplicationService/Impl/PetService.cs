@@ -43,7 +43,7 @@ namespace PetShop.Core.ApplicationService.Impl
         }
 
 
-        public List<Pet> FindPetsByProperty(Filter filter)  //string prop, string searchValue)
+        public List<Pet> FindPetsByProperty(Filter filter)
         {
             IEnumerable<Pet> result;
             var list = _petRepo.ReadAllPets();
@@ -51,7 +51,7 @@ namespace PetShop.Core.ApplicationService.Impl
             {
                 case "name":
                     result = list.Where(pet => pet.Name.ToLower().Contains(filter.Value));
-                    return result.ToList(); ;
+                    return result.ToList();
 
                 case "colour":
                     result = list.Where(pet => pet.Colour.ToLower().Contains(filter.Value));

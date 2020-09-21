@@ -54,32 +54,21 @@ namespace PetShop.Core.ApplicationService.Impl
         }
 
 
-        public List<Owner> FindOwnerByProperty(string prop, string searchValue)
+        public List<Owner> FindOwnersByProperty(Filter filter)
         {
-            IEnumerable<Owner> query;
+            IEnumerable<Owner> results;
             var list = _ownerRepo.ReadAllOwners();
-            switch (prop)
+            switch (filter.Property)
             {
-                case "1":
-                    query = list.Where(owner => owner.Name.ToLower().Contains(searchValue.ToLower()));
-                    return query.ToList(); ;
+                case "name":
+                    results = list.Where(owner => owner.Name.ToLower().Contains(filter.Value));
+                    return results.ToList();
 
-                case "2":
-                    query = list.Where(owner => owner.Address.ToLower().Contains(searchValue.ToLower()));
-                    return query.ToList(); ;
-
-                case "3":
-                    /*   if (searchValue == "Y" || searchValue == "y")
-                        query = list.OrderBy(pet => pet.Price);
-                    else
-                        query = list.OrderBy(pet => pet.Price).Reverse();
-                    return query.ToList();
-                    */
-                default:
-                    Console.WriteLine("That is not a valid property");  // Shouldn't happen, alresdy exceptioned
-                    break;
+                case "address":
+                    results = list.Where(owner => owner.Address.ToLower().Contains(filter.Value));
+                    return results.ToList(); ;
             }
-            return null;
+            return null;   // Should never happen
         }
 
 

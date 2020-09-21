@@ -16,7 +16,7 @@ namespace PetShop.Core.ApplicationService
         Owner FindOwnerById(int id);
         Owner FindOwnerByIdIncludingPets(int id);
         List<Owner> GetAllOwners();
-        List<Owner> FindOwnerByProperty(string prop, string searchValue);
+        List<Owner> FindOwnersByProperty(Filter filter);
 
         // Update
         Owner UpdateOwner(Owner ownerUpdate);
