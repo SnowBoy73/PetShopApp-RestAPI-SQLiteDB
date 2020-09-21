@@ -28,21 +28,6 @@ namespace PetShop.RestAPI.Controllers
 
 
 
-        // GET: api/pets
-        /*     [HttpGet]
-             public ActionResult<List<Pet>> Get()
-             {
-                 IEnumerable<Pet> allPetsENUM = _petService.GetAllPets();
-                 List<Pet> allPets = allPetsENUM.ToList();
-                 if (allPets.Count == 0)
-                 {
-                     return StatusCode(500, "There are no pets in the pet shop");
-                 }
-                 return StatusCode(200, allPets);
-
-             }
-        */
-
         // GET api/pets
         [HttpGet]
         public ActionResult<List<Pet>> Get([FromQuery] string prop, string val)//Filter filter)
@@ -170,7 +155,7 @@ namespace PetShop.RestAPI.Controllers
         // Run check to ensure Pet input is valid. Returns error message as a string
         private string CheckPetInput(Pet pet)
         {
-            string error = "";
+            string error = "";  //used to determine error message (code 500)
             if (string.IsNullOrEmpty(pet.Name))
             {
                 error = "Request Failed - No pet name supplied";

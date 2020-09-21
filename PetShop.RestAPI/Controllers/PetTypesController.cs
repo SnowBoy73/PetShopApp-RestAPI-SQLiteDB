@@ -25,21 +25,6 @@ namespace PetShop.RestAPI.Controllers
 
 
 
-        // GET: api/petTypes
-        //    [HttpGet]
-        /*     public ActionResult<List<PetType>> Get()
-             {
-                 IEnumerable<PetType> allPetTypesENUM = _petTypeService.GetAllPetTypes();
-                 List<PetType> allPetTypes = allPetTypesENUM.ToList();
-                 if (allPetTypes.Count == 0)
-                 {
-                     return StatusCode(500, "There are no pet types in the pet types list");
-                 }
-                 return StatusCode(200, allPetTypes);
-             }
-        */
-
-
         // GET api/pets
         [HttpGet]
         public ActionResult<List<PetType>> Get([FromQuery] string prop, string val)//Filter filter) 
@@ -72,7 +57,6 @@ namespace PetShop.RestAPI.Controllers
                 {
                     return StatusCode(500, "Request Failed - The pet type property '" + property + "' does not exist");
                 }
-
             }
             else
             {
