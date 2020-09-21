@@ -30,24 +30,6 @@ namespace PetShop.RestAPI.Controllers
 
 
 
-        // GET: api/owners
-  /*      [HttpGet]
-        public ActionResult<List<Owner>> Get(/*[FromQuery] string orderDir*///)
-        //public ActionResult<IEnumerable<string>> Get(/*[FromQuery] string orderDir*/)
-  /*      {
-            IEnumerable<Owner> allOwnersENUM = _ownerService.GetAllOwners();
-            List<Owner> allOwners = allOwnersENUM.ToList();
-
-            if (allOwners.Count == 0)
-            {
-                return StatusCode(500, "There are no owners in the owner list");
-            }
-            return StatusCode(200, allOwners);
-        }
-
-*/
-
-
         // GET api/pets
         [HttpGet]
         public ActionResult<List<Owner>> Get([FromQuery] string prop, string val)//Filter filter) 
@@ -165,10 +147,10 @@ namespace PetShop.RestAPI.Controllers
 
 
 
-        // Run check to ensure Owner input is valid
+        // Run check to ensure owner input is valid. Returns error message as a string
         private string CheckOwnerInput(Owner owner)
         {
-            string error = "";
+            string error = "";  //used to determine error message (code 500)
             if (string.IsNullOrEmpty(owner.Name))
             {
                 error = "Request Failed - No owner name supplied";
@@ -178,7 +160,6 @@ namespace PetShop.RestAPI.Controllers
             {
                 error = "Request Failed - No owner address supplied";
             }
-
             List<Pet> ownersPets = owner.PetsOwned;
             if (ownersPets != null)
             {
@@ -187,7 +168,6 @@ namespace PetShop.RestAPI.Controllers
                 {
                     count++;
                     Pet petFromDB = _petService.FindPetById(pet.PetId);
-
                     if (petFromDB == null)
                     {
                         error = "Request Failed - Pet id supplied does not exist for owned pet number " + count;
@@ -266,7 +246,6 @@ namespace PetShop.RestAPI.Controllers
                             {
                                 error = "Request Failed - Name of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
                             }
-
                             if (pet.PreviousOwner.Address != previousOwner.Address)
                             {
                                 error = "Request Failed - Address of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
