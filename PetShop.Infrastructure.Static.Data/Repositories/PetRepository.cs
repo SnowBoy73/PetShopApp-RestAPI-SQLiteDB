@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using PetShop.Core.DomainService;
 using PetShop.Core.Entity;
 
@@ -7,36 +8,34 @@ namespace PetShop.Infrastructure.Data.Repositories
 {
     public class PetRepository : IPetRepository
     {
-        static int id = 1; // as DB cannot have an id of 0
-        private static List<Pet> _pets = new List<Pet>();
+        readonly PetShopContext _ctx;
 
 
-    
+        public PetRepository(PetShopContext ctx)
+        {
+            _ctx = ctx;
+        }
+
+
         public Pet CreatePet(Pet pet)
         {
-            pet.PetId = id++;
-            _pets.Add(pet);
-            return pet;
+            Pet p = _ctx.Pets.Add(pet).Entity;
+            _ctx.SaveChanges();
+            return p;
         }
 
 
 
         public IEnumerable<Pet> ReadAllPets()
         {
-            return _pets;
+            return _ctx.Pets;
         }
+
 
 
         public Pet ReadById(int id)
         {
-            foreach (var pet in _pets)
-            {
-                if (pet.PetId == id)
-                {
-                    return pet;
-                }
-            }
-            return null;
+            return _ctx.Pets.FirstOrDefault(p => p.PetId == id);
         }
 
 
@@ -65,7 +64,7 @@ namespace PetShop.Infrastructure.Data.Repositories
             var petFound = this.ReadById(id);
             if (petFound != null)
             {
-                _pets.Remove(petFound);
+        //        _pets.Remove(petFound);
                 return petFound;
             }
             return null;

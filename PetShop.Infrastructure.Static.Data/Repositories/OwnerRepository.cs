@@ -8,41 +8,34 @@ namespace PetShop.Infrastructure.Data.Repositories
 {
     public class OwnerRepository : IOwnerRepository
     {
-        static int id = 1; // as DB cannot have an id of 0
-        private static List<Owner> _owners = new List<Owner>();
+        readonly PetShopContext _ctx;
 
-        public OwnerRepository()
+
+        public OwnerRepository(PetShopContext ctx)
         {
-         
+            _ctx = ctx;
         }
 
 
         public Owner CreateOwner(Owner owner)
         {
-            owner.OwnerId = id++;
-            _owners.Add(owner);
-            return owner;
+            Owner o = _ctx.Owners.Add(owner).Entity;
+            _ctx.SaveChanges();
+            return o;
         }
 
 
 
         public IEnumerable<Owner> ReadAllOwners()
          {
-            return _owners;
+            return _ctx.Owners;
         }
 
 
 
         public Owner ReadById(int id)
         {
-            foreach (var owner in _owners)
-            {
-                if (owner.OwnerId == id)
-                {
-                    return owner;
-                }
-            }
-            return null;
+            return _ctx.Owners.FirstOrDefault(p => p.OwnerId == id);
         }
 
 
@@ -67,7 +60,7 @@ namespace PetShop.Infrastructure.Data.Repositories
             var ownerFound = this.ReadById(id);
             if (ownerFound != null)
             {
-                _owners.Remove(ownerFound);
+        //        _owners.Remove(ownerFound);
                 return ownerFound;
             }
             return null;

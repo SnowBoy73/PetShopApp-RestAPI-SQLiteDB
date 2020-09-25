@@ -47,7 +47,7 @@ namespace PetShop.Core.ApplicationService.Impl
         }
 
 
-
+       
         public List<Pet> FindPetsByProperty(Filter filter)
         {
             IEnumerable<Pet> result;

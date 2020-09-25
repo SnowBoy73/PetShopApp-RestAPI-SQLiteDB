@@ -11,4 +11,9 @@
     <ProjectReference Include="..\PetShop.Core.Entity\PetShop.Core.Entity.csproj" />
     <ProjectReference Include="..\PetShop.Core\PetShop.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="1.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="3.1.8" />
+  </ItemGroup>
 </Project>

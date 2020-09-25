@@ -53,7 +53,8 @@ namespace PetShop.Core.ApplicationService.Impl
             {
                 return null ;
             }
-            owner.PetsOwned = _petRepo.ReadAllPets().Where(pet => pet.PreviousOwner.OwnerId == owner.OwnerId).ToList();
+            owner.PetsOwned = _petRepo.ReadAllPets().Where(pet => pet.PreviousOwner != null &&
+            pet.PreviousOwner.OwnerId == owner.OwnerId).ToList();
             return owner;
         }
 

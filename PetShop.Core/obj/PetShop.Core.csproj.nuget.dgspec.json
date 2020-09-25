@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core/PetShop.Core.csproj": {}
+    "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core/PetShop.Core.csproj": {}
   },
   "projects": {
-    "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core.Entity/PetShop.Core.Entity.csproj": {
+    "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core.Entity/PetShop.Core.Entity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core.Entity/PetShop.Core.Entity.csproj",
+        "projectUniqueName": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core.Entity/PetShop.Core.Entity.csproj",
         "projectName": "PetShop.Core.Entity",
-        "projectPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core.Entity/PetShop.Core.Entity.csproj",
+        "projectPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core.Entity/PetShop.Core.Entity.csproj",
         "packagesPath": "/Users/jeannerosendalsoeltoft/.nuget/packages/",
-        "outputPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core.Entity/obj/",
+        "outputPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core.Entity/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/jeannerosendalsoeltoft/.config/NuGet/NuGet.Config"
@@ -54,14 +54,14 @@
         }
       }
     },
-    "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core/PetShop.Core.csproj": {
+    "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core/PetShop.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core/PetShop.Core.csproj",
+        "projectUniqueName": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core/PetShop.Core.csproj",
         "projectName": "PetShop.Core",
-        "projectPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core/PetShop.Core.csproj",
+        "projectPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core/PetShop.Core.csproj",
         "packagesPath": "/Users/jeannerosendalsoeltoft/.nuget/packages/",
-        "outputPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core/obj/",
+        "outputPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/jeannerosendalsoeltoft/.config/NuGet/NuGet.Config"
@@ -75,8 +75,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core.Entity/PetShop.Core.Entity.csproj": {
-                "projectPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/C# Projects/PetShop/PetShopRestAPI/PetShop.Core.Entity/PetShop.Core.Entity.csproj"
+              "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core.Entity/PetShop.Core.Entity.csproj": {
+                "projectPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core.Entity/PetShop.Core.Entity.csproj"
               }
             }
           }
