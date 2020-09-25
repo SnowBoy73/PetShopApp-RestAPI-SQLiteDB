@@ -1,9 +1,9 @@
 ﻿<Properties StartupConfiguration="{CBB36323-0948-4B58-9F6A-E3DB22AB85CC}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="PetShop.Infrastructure.Static.Data/PetShopContext.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PetShop.RestAPI/Startup.cs">
     <Files>
       <File FileName="PetShop.Infrastructure.Static.Data/Repositories/PetRepository.cs" Line="34" Column="1" />
-      <File FileName="PetShop.RestAPI/Startup.cs" />
-      <File FileName="PetShop.Infrastructure.Static.Data/PetShopContext.cs" Line="10" Column="9" />
+      <File FileName="PetShop.RestAPI/Startup.cs" Line="129" Column="1" />
+      <File FileName="PetShop.Infrastructure.Static.Data/PetShopContext.cs" Line="18" Column="1" />
       <File FileName="PetShop.Infrastructure.Static.Data/PetShop.Infrastructure.SQL/PetShopDBContext.cs" />
     </Files>
     <Pads>
@@ -22,12 +22,13 @@
                 <Node name="PetShop.Infrastructure.SQL" expanded="True">
                   <Node name="Repositories" expanded="True" />
                 </Node>
-                <Node name="PetShopContext.cs" selected="True" />
+                <Node name="Repositories" expanded="True" />
               </Node>
             </Node>
             <Node name="UI" expanded="True">
               <Node name="PetShop.RestAPI" expanded="True">
                 <Node name="Controllers" expanded="True" />
+                <Node name="Startup.cs" selected="True" />
               </Node>
             </Node>
           </Node>
