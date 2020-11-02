@@ -88,16 +88,16 @@ namespace PetShop.RestAPI.Controllers
         [HttpPost]  // NOT essential. Only needed if we change this methods name from "Post", and then it tells the system this is the POST method. Needed if sending parameters
         public ActionResult<PetType> Post([FromBody] PetType petTypeToPost)
         {
-            if (string.IsNullOrEmpty(petTypeToPost.Name))
+            if (string.IsNullOrEmpty(petTypeToPost.name))
             {
                 return StatusCode(500, "No name of pet type supplied");
             }
             List<PetType> allPetTypes = _petTypeService.GetAllPetTypes();
             foreach (var petType in allPetTypes)
             {
-                if (petType.Name == petTypeToPost.Name)
+                if (petType.name == petTypeToPost.name)
                 {
-                    return StatusCode(500, "This pet type with name " + petType.Name + " already exists with an id of " + petType.PetTypeId);
+                    return StatusCode(500, "This pet type with name " + petType.name + " already exists with an id of " + petType.petTypeId);
                 }
             }
             PetType petTypeToCreate = _petTypeService.CreatePetType(petTypeToPost);
@@ -115,11 +115,11 @@ namespace PetShop.RestAPI.Controllers
                 return StatusCode(500, "Request Failed - Pet type id is less than 1");
             }
 
-            if (id != petTypeToPut.PetTypeId)
+            if (id != petTypeToPut.petTypeId)
             {
                 return StatusCode(500, "Request Failed - Pet type id from header and Pet type id from JSON body do not match");
             }
-            if (string.IsNullOrEmpty(petTypeToPut.Name))
+            if (string.IsNullOrEmpty(petTypeToPut.name))
             {
                 return StatusCode(500, "No name of pet type supplied");
             }
@@ -141,9 +141,9 @@ namespace PetShop.RestAPI.Controllers
             deletedPetType = _petTypeService.DeletePetType(id);
             if (deletedPetType == null)
             {
-                return StatusCode(404, "No owner with id " + id + " was found to delete ");
+                return StatusCode(404, "No pet type with id " + id + " was found to delete ");
             }
-            return StatusCode(202, deletedPetType);
+            return StatusCode(202, "Pet type with id " + id + " was deleted");
         }
 
 

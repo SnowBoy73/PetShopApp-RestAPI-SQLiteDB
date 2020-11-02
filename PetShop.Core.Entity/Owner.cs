@@ -1,13 +1,13 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 
 namespace PetShop.Core.Entity
 {
     public class Owner
     {
-        public int OwnerId { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public List<Pet> PetsOwned { get; set; }
+        public int ownerId { get; set; }
+        public string name { get; set; }
+        public string address { get; set; }
+        public List<Pet> petsOwned { get; set; }
     }
 }

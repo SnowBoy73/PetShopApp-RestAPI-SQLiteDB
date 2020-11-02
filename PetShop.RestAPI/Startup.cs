@@ -1,23 +1,26 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using PetShop.Core.ApplicationService;
 using PetShop.Core.ApplicationService.Impl;
 using PetShop.Core.DomainService;
 using PetShop.Core.Entity;
+using PetShop.Core.Helper;
 using PetShop.Infrastructure.Data;
 using PetShop.Infrastructure.Data.Repositories;
-using PetShop.Infrastructure.SQL;
-using PetShop.Infrastructure.SQL.Repositories;
 
 namespace PetShop.RestAPI
 {
@@ -37,6 +40,28 @@ namespace PetShop.RestAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
+            // Create a byte array with random values. This byte array is used
+            // to generate a key for signing JWT tokens.
+            Byte[] secretBytes = new byte[40];
+            Random rand = new Random();
+            rand.NextBytes(secretBytes);
+
+            // Add JWT based authentication
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(secretBytes),
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromMinutes(5)
+                };
+            });
+
+
+
             //    var serviceCollection = new ServiceCollection();  //new
 
             /*   var loggerfactory = LoggerService.Create(builder => {
@@ -44,27 +69,68 @@ namespace PetShop.RestAPI
                });  */
 
             // if dev do this
-           services.AddDbContext<PetShopContext>(
+            services.AddDbContext<PetShopContext>(
             opt => opt.UseSqlite("Data Source= petshopApp.db"));
             //: DbOptionsBuilder =>
-                 //: DbOptionsBuilder =>
-                /*   {
-                       opt
-                       UseLoggerFactory(loggerfactory)
-                       .UseSqlite(connectionString: "Data Source = petapp.db");
-                   } */
-               
+            //: DbOptionsBuilder =>
+            /*   {
+                   opt
+                   UseLoggerFactory(loggerfactory)
+                   .UseSqlite(connectionString: "Data Source = petapp.db");
+               } */
+
             // to here
+
+          
+
+            // Register repositories for dependency injection
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
             services.AddScoped<IPetTypeRepository, PetTypeRepository>();
 
+            // Register services for dependency injection
             services.AddScoped<IPetService, PetService>();
-            services.AddScoped<IOwnerRepository, OwnerRepository>();
             services.AddScoped<IOwnerService, OwnerService>();
-            services.AddScoped<IPetTypeRepository, PetTypeRepository>();
             services.AddScoped<IPetTypeService, PetTypeService>();
-            services.AddScoped<IFakeDB, FakeDB>();
+
+           
+
+
+            // Register database initializer
+            services.AddTransient<IDBInitialiser, DBInitialiser>();
+
+            // Register the AuthenticationHelper in the helpers folder for dependency
+            // injection. It must be registered as a singleton service. The AuthenticationHelper
+            // is instantiated with a parameter. The parameter is the previously created
+            // "secretBytes" array, which is used to generate a key for signing JWT tokens,
+            services.AddSingleton<IAuthenticationHelper>(new
+               AuthenticationHelper(secretBytes));
+
+            // Configure the default CORS policy.
+            services.AddCors(options =>
+                options.AddDefaultPolicy(
+                  builder =>
+                  {
+                      builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                  })
+             );
+
+            //Register the Swagger generator using Swashbuckle.
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "PetShop API",
+                    Description = "A simple example ASP.NET Core Web API"
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+
 
             services.AddControllers(); 
             services.AddMvc().AddNewtonsoftJson();
@@ -75,8 +141,6 @@ namespace PetShop.RestAPI
              //   options.SerializerSettings.MaxDepth = 100;  // 100 pet limit per owner
             });
 
-            // Build provider
-            //var serviceProvider = services.BuildServiceProvider();
         }
 
 
@@ -90,19 +154,12 @@ namespace PetShop.RestAPI
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
                     var ctx = scope.ServiceProvider.GetService<PetShopContext>();
-                  
-
-                    DBInitialiser.SeedDB(ctx);
-                    Console.WriteLine("pet count = " + ctx.Pets.Count());
-                    Console.WriteLine("owner count = " + ctx.Owners.Count());
-                    Console.WriteLine("pet type count = " + ctx.PetTypes.Count());
-
                     var petRepository = scope.ServiceProvider.GetService<IPetRepository>();
                     var ownerRepository = scope.ServiceProvider.GetService<IOwnerRepository>();
                     var petTypeRepository = scope.ServiceProvider.GetService<IPetTypeRepository>();
-                   // new FakeDB(ownerrepo, petTyperepo, petrepo).InitData();
-
-                //    new DBInitialiser(petRepository, ownerRepository, petTypeRepository).InitData();
+                    var dbIntialiser = scope.ServiceProvider.GetService<IDBInitialiser>();
+                    dbIntialiser.SeedDB(ctx);
+                    // DBInitialiser.SeedDB(ctx);
 
                 }
             }
@@ -114,7 +171,11 @@ namespace PetShop.RestAPI
 
             app.UseRouting();
 
+            app.UseCors();
+
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             // localhost/pet
             app.UseEndpoints(endpoints =>

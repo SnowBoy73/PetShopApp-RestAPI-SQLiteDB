@@ -7,7 +7,7 @@ namespace PetShop.Core.ApplicationService
     public interface IPetTypeService
     {
         // New PetType
-        PetType NewPetType(string type);
+        //PetType NewPetType(string type);
 
         // Create
         PetType CreatePetType(PetType createdPetType);

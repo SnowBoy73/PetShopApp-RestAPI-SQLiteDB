@@ -14,6 +14,7 @@ namespace PetShop.Core.DomainService
         // Read Owner(s)
         Owner ReadById(int id);
         IEnumerable<Owner> ReadAllOwners();
+        Owner ReadByIdIncludingPets(int id);
 
         // Update Owner
         Owner UpdateOwner(Owner ownerUpdate);
@@ -21,5 +22,6 @@ namespace PetShop.Core.DomainService
         // Delete Owner
         Owner DeleteOwner(int id);
 
+        
     }
 }

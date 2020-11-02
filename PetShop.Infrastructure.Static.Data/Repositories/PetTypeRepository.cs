@@ -35,7 +35,7 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public PetType ReadById(int id)
         {
-            return _ctx.PetTypes.FirstOrDefault(p => p.PetTypeId == id);
+            return _ctx.PetTypes.FirstOrDefault(p => p.petTypeId == id);
         }
 
 
@@ -43,10 +43,10 @@ namespace PetShop.Infrastructure.Data.Repositories
         // Remove later for UOW
         public PetType UpdatePetType(PetType petTypeUpdate)
         {
-            var petTypeFromDB = this.ReadById(petTypeUpdate.PetTypeId);
+            var petTypeFromDB = this.ReadById(petTypeUpdate.petTypeId);
             if (petTypeFromDB != null)
             {
-            petTypeFromDB.Name = petTypeUpdate.Name;
+            petTypeFromDB.name = petTypeUpdate.name;
                    
                 return petTypeFromDB;
             }
@@ -56,13 +56,9 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public PetType DeletePetType(int id)
         {
-            var petTypeFound = this.ReadById(id);
-            if (petTypeFound != null)
-            {
-       //         _petTypes.Remove(petTypeFound);
-                return petTypeFound;
-            }
-            return null;
+            var petTypeRemoved = _ctx.Remove(new PetType { petTypeId = id }).Entity;
+            _ctx.SaveChanges();
+            return petTypeRemoved;
         }
 
     }

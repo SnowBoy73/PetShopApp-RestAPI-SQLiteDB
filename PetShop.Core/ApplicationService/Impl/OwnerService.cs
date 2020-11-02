@@ -23,9 +23,9 @@ namespace PetShop.Core.ApplicationService.Impl
         {
             var newOwner = new Owner()
             {
-                Name = name,
-                Address = address,
-                PetsOwned = petsOwned
+                name = name,
+                address = address,
+                petsOwned = petsOwned
             };
             return newOwner;
         }
@@ -48,14 +48,8 @@ namespace PetShop.Core.ApplicationService.Impl
 
         public Owner FindOwnerByIdIncludingPets(int id)
         {
-            var owner = _ownerRepo.ReadById(id);
-            if (owner == null)
-            {
-                return null ;
-            }
-            owner.PetsOwned = _petRepo.ReadAllPets().Where(pet => pet.PreviousOwner != null &&
-            pet.PreviousOwner.OwnerId == owner.OwnerId).ToList();
-            return owner;
+            var owner = _ownerRepo.ReadByIdIncludingPets(id);
+             return owner;
         }
 
 
@@ -67,11 +61,11 @@ namespace PetShop.Core.ApplicationService.Impl
             switch (filter.Property)
             {
                 case "name":
-                    results = list.Where(owner => owner.Name.ToLower().Contains(filter.Value));
+                    results = list.Where(owner => owner.name.ToLower().Contains(filter.Value));
                     return results.ToList();
 
                 case "address":
-                    results = list.Where(owner => owner.Address.ToLower().Contains(filter.Value));
+                    results = list.Where(owner => owner.address.ToLower().Contains(filter.Value));
                     return results.ToList(); ;
             }
             return null;   // Should never happen
@@ -88,16 +82,16 @@ namespace PetShop.Core.ApplicationService.Impl
 
         public Owner UpdateOwner(Owner ownerUpdate)
         {
-            var updatedOwner = FindOwnerById(ownerUpdate.OwnerId); //FindOwnerById(ownerUpdate.OwnerId);
+            var updatedOwner = FindOwnerById(ownerUpdate.ownerId); //FindOwnerById(ownerUpdate.OwnerId);
             if (updatedOwner == null)
             {
                 return null;
             }
             else
             {
-                updatedOwner.Name = ownerUpdate.Name;
-                updatedOwner.Address = ownerUpdate.Address;
-                updatedOwner.PetsOwned = ownerUpdate.PetsOwned;
+                updatedOwner.name = ownerUpdate.name;
+                updatedOwner.address = ownerUpdate.address;
+                updatedOwner.petsOwned = ownerUpdate.petsOwned;
                 return updatedOwner;
             }
         }

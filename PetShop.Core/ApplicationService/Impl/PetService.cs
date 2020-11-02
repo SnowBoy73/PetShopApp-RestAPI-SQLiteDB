@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using PetShop.Core.DomainService;
 using PetShop.Core.Entity;
@@ -21,13 +22,13 @@ namespace PetShop.Core.ApplicationService.Impl
         {
             var newPet = new Pet()
             {
-                Name = name,
-                Type = type,
-                BirthDate = birthDate,
-                SoldDate = soldDate,
-                Colour = colour,
-                PreviousOwner = previousOwner,
-                Price = price
+                name = name,
+                type = type,
+                birthDate = birthDate,
+                soldDate = soldDate,
+                colour = colour,
+                petOwner = previousOwner,
+                price = price
             };
             return newPet;
         }
@@ -36,6 +37,20 @@ namespace PetShop.Core.ApplicationService.Impl
 
         public Pet CreatePet(Pet createdPet)
         {
+            if (createdPet.name == null || createdPet.name == "")
+                throw new InvalidDataException("To create a pet you need to name the pet");
+            if (createdPet.type == null )
+                throw new InvalidDataException("To create a pet you need a pet type");
+            if (createdPet.colour == null || createdPet.colour == "")
+                throw new InvalidDataException("To create a pet you need to nagive it a colour");
+            if (createdPet.birthDate == null)
+                throw new InvalidDataException("To create a pet you need to declare it's birth date");
+            if (createdPet.price <= 0)
+                throw new InvalidDataException("To create a pet you need to give it a valid price");
+            if (createdPet.soldDate == null)
+                throw new InvalidDataException("To create a pet you need to declare it's sold date");
+            if (createdPet.petOwner == null || createdPet.petOwner.ownerId <= 0)
+                throw new InvalidDataException("To create a pet you need a previous owner");
             return _petRepo.CreatePet(createdPet);
         }
 
@@ -55,20 +70,20 @@ namespace PetShop.Core.ApplicationService.Impl
             switch (filter.Property)
             {
                 case "name":
-                    result = list.Where(pet => pet.Name.ToLower().Contains(filter.Value));
+                    result = list.Where(pet => pet.name.ToLower().Contains(filter.Value));
                     return result.ToList();
 
                 case "colour":
-                    result = list.Where(pet => pet.Colour.ToLower().Contains(filter.Value));
+                    result = list.Where(pet => pet.colour.ToLower().Contains(filter.Value));
                     return result.ToList();
 
                 case "price":
                     double priceDouble = Convert.ToDouble(filter.Value);
-                    result = list.Where(pet => pet.Price <= priceDouble);
+                    result = list.Where(pet => pet.price <= priceDouble);
                     return result.ToList();
 
                 case "previousowner":
-                    result = list.Where(pet => pet.PreviousOwner.Name.ToLower().Contains(filter.Value));
+                    result = list.Where(pet => pet.petOwner.name.ToLower().Contains(filter.Value));
                     return result.ToList();
             }
             return null;    // Should never happen
@@ -76,31 +91,32 @@ namespace PetShop.Core.ApplicationService.Impl
 
 
 
-        public List<Pet> GetAllPets()
+        public IEnumerable<Pet> GetAllPets()
         {
-            return _petRepo.ReadAllPets().ToList();
+            return _petRepo.ReadAllPets();
         }
 
 
 
         public Pet UpdatePet(Pet petUpdate)
         {
-            var updatedPet = FindPetById(petUpdate.PetId);
-            if (updatedPet == null)
-            {
-                return null;
-            }
-            else
-            {
-                updatedPet.Name = petUpdate.Name;
-                updatedPet.Type = petUpdate.Type;
-                updatedPet.Colour = petUpdate.Colour;
-                updatedPet.BirthDate = petUpdate.BirthDate;
-                updatedPet.Price = petUpdate.Price;
-                updatedPet.SoldDate = petUpdate.SoldDate;
-                updatedPet.PreviousOwner = petUpdate.PreviousOwner;
-                return updatedPet;
-            }
+            /*   var updatedPet = FindPetById(petUpdate.PetId);
+               if (updatedPet == null)
+               {
+                   return null;
+               }
+               else
+               {
+                   updatedPet.Name = petUpdate.Name;
+                   updatedPet.Type = petUpdate.Type;
+                   updatedPet.Colour = petUpdate.Colour;
+                   updatedPet.BirthDate = petUpdate.BirthDate;
+                   updatedPet.Price = petUpdate.Price;
+                   updatedPet.SoldDate = petUpdate.SoldDate;
+                   updatedPet.PreviousOwner = petUpdate.PreviousOwner;
+                   return updatedPet;  
+               } */
+            return _petRepo.UpdatePet(petUpdate);
         }
 
 

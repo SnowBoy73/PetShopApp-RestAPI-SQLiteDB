@@ -1,8 +1,9 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using PetShop.Core.DomainService;
 using PetShop.Core.Entity;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace PetShop.Infrastructure.Data.Repositories
 {
@@ -35,7 +36,14 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Owner ReadById(int id)
         {
-            return _ctx.Owners.FirstOrDefault(p => p.OwnerId == id);
+            return _ctx.Owners.FirstOrDefault(o => o.ownerId == id);
+        }
+
+
+
+        public Owner ReadByIdIncludingPets(int id)
+        {
+            return _ctx.Owners.Include(o => o.petsOwned).FirstOrDefault(o => o.ownerId == id);
         }
 
 
@@ -43,12 +51,12 @@ namespace PetShop.Infrastructure.Data.Repositories
         // Remove later for UOW
         public Owner UpdateOwner(Owner ownerUpdate)
         {
-            var ownerFromDB = this.ReadById(ownerUpdate.OwnerId);
+            var ownerFromDB = this.ReadById(ownerUpdate.ownerId);
             if (ownerFromDB != null)
             {
-                ownerFromDB.Name = ownerUpdate.Name;
-                ownerFromDB.Address = ownerUpdate.Address;
-                ownerFromDB.PetsOwned = ownerUpdate.PetsOwned;
+                ownerFromDB.name = ownerUpdate.name;
+                ownerFromDB.address = ownerUpdate.address;
+                ownerFromDB.petsOwned = ownerUpdate.petsOwned;
                 return ownerFromDB;
             }
             return null;
@@ -57,14 +65,13 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Owner DeleteOwner(int id)
         {
-            var ownerFound = this.ReadById(id);
-            if (ownerFound != null)
-            {
-        //        _owners.Remove(ownerFound);
-                return ownerFound;
-            }
-            return null;
+          //  var petsToRemove = _ctx.Pets.Where(p => p.PetsOwner.OwnerId == id);
+          //  _ctx.RemoveRange(petsToRemove);
+            var ownerRemoved = _ctx.Remove(new Owner { ownerId = id }).Entity;
+            _ctx.SaveChanges();
+            return ownerRemoved;
         }
 
+       
     }
 }

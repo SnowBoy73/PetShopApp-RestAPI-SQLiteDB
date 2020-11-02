@@ -113,7 +113,7 @@ namespace PetShop.RestAPI.Controllers
             {
                 return StatusCode(500, "Request Failed - Owner id must be greater than zero");
             }
-            if (id != ownerToPut.OwnerId)
+            if (id != ownerToPut.ownerId)
             {
                 return StatusCode(500, "Request Failed - Owner id from header and owner id from JSON body do not match");
             }
@@ -140,10 +140,14 @@ namespace PetShop.RestAPI.Controllers
             deletedOwner = _ownerService.DeleteOwner(id);
             if (deletedOwner == null)
             {
-                return StatusCode(404, "No owner with id " + id + " was found to delete ");
+                return StatusCode(404, "No owner with id " + id + " was found to delete");
             }
-            return StatusCode(202, deletedOwner);
+            return StatusCode(202, "Owner with id " + id + " was deleted");
         }
+
+
+
+
 
 
 
@@ -151,104 +155,104 @@ namespace PetShop.RestAPI.Controllers
         private string CheckOwnerInput(Owner owner)
         {
             string error = "";  //used to determine error message (code 500)
-            if (string.IsNullOrEmpty(owner.Name))
+            if (string.IsNullOrEmpty(owner.name))
             {
                 error = "Request Failed - No owner name supplied";
             }
 
-            if (string.IsNullOrEmpty(owner.Address))
+            if (string.IsNullOrEmpty(owner.address))
             {
                 error = "Request Failed - No owner address supplied";
             }
-            List<Pet> ownersPets = owner.PetsOwned;
+            List<Pet> ownersPets = owner.petsOwned;
             if (ownersPets != null)
             {
                 int count = 0;
                 foreach (var pet in ownersPets)
                 {
                     count++;
-                    Pet petFromDB = _petService.FindPetById(pet.PetId);
+                    Pet petFromDB = _petService.FindPetById(pet.petId);
                     if (petFromDB == null)
                     {
                         error = "Request Failed - Pet id supplied does not exist for owned pet number " + count;
                     }
                     else
                     {
-                        if ((pet.PetId != petFromDB.PetId) || (pet.Name != petFromDB.Name) || (pet.Colour != petFromDB.Colour) || (pet.BirthDate != petFromDB.BirthDate) || (pet.Price != petFromDB.Price) || (pet.SoldDate != petFromDB.SoldDate))
+                        if ((pet.petId != petFromDB.petId) || (pet.name != petFromDB.name) || (pet.colour != petFromDB.colour) || (pet.birthDate != petFromDB.birthDate) || (pet.price != petFromDB.price) || (pet.soldDate != petFromDB.soldDate))
                         {
-                            error = "Request Failed - Pet details supplied for owned pet number " + count + " is different from the details of the pet in the database with id " + pet.PetId + ". Please correct the pets details or id to match a valid pet";
+                            error = "Request Failed - Pet details supplied for owned pet number " + count + " is different from the details of the pet in the database with id " + pet.petId + ". Please correct the pets details or id to match a valid pet";
                         }
-                        if (string.IsNullOrEmpty(pet.Name))
+                        if (string.IsNullOrEmpty(pet.name))
                         {
                             error = "Request Failed - No pet name supplied for owned pet number " + count;
                         }
 
-                        PetType petType = _petTypeService.FindPetTypeById(pet.Type.PetTypeId);
+                        PetType petType = _petTypeService.FindPetTypeById(pet.type.petTypeId);
                         if (petType == null)
                         {
                             error = "Request Failed - Pet type Id supplied does not exist for owned pet number " + count;
                         }
                         else
                         {
-                            if (pet.Type.Name != petType.Name)
+                            if (pet.type.name != petType.name)
                             {
                                 error = "Request Failed - Pet type name supplied for owned pet number " + count + " is different from the name of this pet type. Please correct the name or id to match a valid pet type";
                             }
 
-                            if (pet.Type.Name == "")
+                            if (pet.type.name == "")
                             {
                                 error = "Request Failed - Pet type name not supplied for owned pet number " + count;
                             }
                         }
-                        if (string.IsNullOrEmpty(pet.Colour))
+                        if (string.IsNullOrEmpty(pet.colour))
                         {
                             error = "Request Failed - No pet colour supplied for owned pet number " + count;
                         }
 
-                        if (pet.BirthDate < DateTime.Now.AddYears(-275))
+                        if (pet.birthDate < DateTime.Now.AddYears(-275))
                         {
                             error = "Request Failed - Birthdate is more than 275 years ago for owned pet number " + count + ". Henry the Tortoise is the oldest living animal at 275 years, so if this pet is older than that, you should contact the Guiness Book of Records";
                         }
 
-                        if (pet.BirthDate > DateTime.Now.AddDays(1))
+                        if (pet.birthDate > DateTime.Now.AddDays(1))
                         {
                             error = "Request Failed - Birthdate for owned pet number " + count + " is in the future";
                         }
 
-                        if (pet.Price < 0)
+                        if (pet.price < 0)
                         {
                             error = "Request Failed - What? Are you going to pay someone to take owned pet number " + count + " away? Sounds like a terrible pet";
                         }
 
-                        if (pet.SoldDate < DateTime.Now.AddYears(-100))
+                        if (pet.soldDate < DateTime.Now.AddYears(-100))
                         {
                             error = "Request Failed - Sold date for owned pet number " + count + " is more than 100 years ago. If it was over a hundred years ago... who cares?";
                         }
 
-                        if (pet.SoldDate > DateTime.Now.AddDays(1))
+                        if (pet.soldDate > DateTime.Now.AddDays(1))
                         {
                             error = "Request Failed - Sold date for owned pet number " + count + " is in the future";
                         }
 
-                        if (pet.SoldDate < pet.BirthDate)
+                        if (pet.soldDate < pet.birthDate)
                         {
                             error = "Request Failed - Sold date for owned pet number " + count + " is before it's birthdate";
                         }
 
-                        Owner previousOwner = _ownerService.FindOwnerById(pet.PreviousOwner.OwnerId);
-                        if (pet.PreviousOwner == null)
+                        Owner previousOwner = _ownerService.FindOwnerById(pet.petOwner.ownerId);
+                        if (pet.petOwner == null)
                         {
                             error = "Request Failed - Pet number " + count + " has no previous owner";
                         }
                         else
                         {
-                            if (pet.PreviousOwner.Name != previousOwner.Name)
+                            if (pet.petOwner.name != previousOwner.name)
                             {
-                                error = "Request Failed - Name of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
+                                error = "Request Failed - Name of previous owner supplied does not match the owner with id " + previousOwner.ownerId;
                             }
-                            if (pet.PreviousOwner.Address != previousOwner.Address)
+                            if (pet.petOwner.address != previousOwner.address)
                             {
-                                error = "Request Failed - Address of previous owner supplied does not match the owner with id " + previousOwner.OwnerId;
+                                error = "Request Failed - Address of previous owner supplied does not match the owner with id " + previousOwner.ownerId;
                             }
                         }
 

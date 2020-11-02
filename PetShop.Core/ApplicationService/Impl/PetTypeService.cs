@@ -16,7 +16,7 @@ namespace PetShop.Core.ApplicationService.Impl
         }
            
 
-        public PetType NewPetType(string type)
+ /*       public PetType NewPetType(string type)
         {
             var newPetType = new PetType()
             {
@@ -24,7 +24,7 @@ namespace PetShop.Core.ApplicationService.Impl
             };
             return newPetType;
         }
-
+ */
 
         public PetType CreatePetType(PetType createdPetType)
         {
@@ -46,7 +46,7 @@ namespace PetShop.Core.ApplicationService.Impl
             switch (filter.Property)
             {
                 case "name":
-                    results = list.Where(owner => owner.Name.ToLower().Contains(filter.Value));
+                    results = list.Where(owner => owner.name.ToLower().Contains(filter.Value));
                     return results.ToList();
             }
             return null;   // Should never happen
@@ -63,14 +63,14 @@ namespace PetShop.Core.ApplicationService.Impl
 
         public PetType UpdatePetType(PetType petTypeUpdate)
         {
-            var updatedPetType = FindPetTypeById(petTypeUpdate.PetTypeId); //FindOwnerById(ownerUpdate.OwnerId);
+            var updatedPetType = FindPetTypeById(petTypeUpdate.petTypeId); //FindOwnerById(ownerUpdate.OwnerId);
             if (updatedPetType == null)
             {
                 return null;
             }
             else
             {
-            updatedPetType.Name = petTypeUpdate.Name;
+            updatedPetType.name = petTypeUpdate.name;
                    
                 return updatedPetType;
             }

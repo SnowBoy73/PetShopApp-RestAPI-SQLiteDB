@@ -1,10 +1,10 @@
 ﻿<Properties StartupConfiguration="{CBB36323-0948-4B58-9F6A-E3DB22AB85CC}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="PetShop.RestAPI/Startup.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PetShop.Core.Entity/User.cs">
     <Files>
-      <File FileName="PetShop.Infrastructure.Static.Data/Repositories/PetRepository.cs" Line="34" Column="1" />
-      <File FileName="PetShop.RestAPI/Startup.cs" Line="129" Column="1" />
-      <File FileName="PetShop.Infrastructure.Static.Data/PetShopContext.cs" Line="18" Column="1" />
-      <File FileName="PetShop.Infrastructure.Static.Data/PetShop.Infrastructure.SQL/PetShopDBContext.cs" />
+      <File FileName="PetShop.RestAPI/Startup.cs" Line="13" Column="38" />
+      <File FileName="PetShop.Infrastructure.Static.Data/DBInitialiser.cs" Line="52" Column="20" />
+      <File FileName="PetShop.RestAPI/Program.cs" Line="11" Column="1" />
+      <File FileName="PetShop.Core.Entity/User.cs" Line="8" Column="31" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,23 +12,26 @@
           <Node name="PetShop" expanded="True">
             <Node name="Core" expanded="True">
               <Node name="PetShop.Core" expanded="True">
+                <Node name="Dependencies" expanded="True">
+                  <Node name="FrameworkReferences" expanded="True" />
+                </Node>
                 <Node name="ApplicationService" expanded="True">
                   <Node name="Impl" expanded="True" />
                 </Node>
+                <Node name="DomainService" expanded="True" />
+                <Node name="Helper" expanded="True" />
+              </Node>
+              <Node name="PetShop.Core.Entity" expanded="True">
+                <Node name="Dependencies" expanded="True" />
+                <Node name="User.cs" selected="True" />
               </Node>
             </Node>
             <Node name="Infrastructure" expanded="True">
-              <Node name="PetShop.Infrastructure.Data" expanded="True">
-                <Node name="PetShop.Infrastructure.SQL" expanded="True">
-                  <Node name="Repositories" expanded="True" />
-                </Node>
-                <Node name="Repositories" expanded="True" />
-              </Node>
+              <Node name="PetShop.Infrastructure.Data" expanded="True" />
             </Node>
             <Node name="UI" expanded="True">
               <Node name="PetShop.RestAPI" expanded="True">
-                <Node name="Controllers" expanded="True" />
-                <Node name="Startup.cs" selected="True" />
+                <Node name="Dependencies" expanded="True" />
               </Node>
             </Node>
           </Node>
@@ -42,14 +45,14 @@
     <String>PetShop.UI/PetShop.RestAPI/PetShop.RestAPI.csproj</String>
     <String>PetShop.UI/PetShop.RestAPI.csproj</String>
     <String>PetShop.UI/test/test.csproj</String>
+    <String>PetShop.Infrastructure.Static.Data/PetShop.Infrastructure.SQL/PetShop.Infrastructure.SQL.csproj</String>
   </DisabledProjects>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Infrastructure.PetShop.Infrastructure.SQL FirstBuild="True" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint enabled="false" file="/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.RestAPI/Controllers/SearchController.cs" relfile="PetShop.RestAPI/Controllers/SearchController.cs" line="33" column="1" />
-      <Breakpoint enabled="false" file="/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Infrastructure.Static.Data/DBInitialiser.cs" relfile="PetShop.Infrastructure.Static.Data/DBInitialiser.cs" line="10" column="1" />
-      <Breakpoint file="/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.RestAPI/Startup.cs" relfile="PetShop.RestAPI/Startup.cs" line="100" column="1" />
+      <Breakpoint enabled="false" file="/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core/ApplicationService/IPetService.cs" relfile="PetShop.Core/ApplicationService/IPetService.cs" line="17" column="1" />
+      <Breakpoint enabled="false" file="/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.RestAPI/Controllers/PetsController.cs" relfile="PetShop.RestAPI/Controllers/PetsController.cs" line="81" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />

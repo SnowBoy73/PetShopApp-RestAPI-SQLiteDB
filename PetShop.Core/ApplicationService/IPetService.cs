@@ -14,7 +14,7 @@ namespace PetShop.Core.ApplicationService
 
         // Read
         Pet FindPetById(int id);
-        List<Pet> GetAllPets();
+        IEnumerable<Pet> GetAllPets();
         List<Pet> FindPetsByProperty(Filter filter);
 
         // Update

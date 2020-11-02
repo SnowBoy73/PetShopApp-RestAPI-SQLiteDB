@@ -1,65 +1,185 @@
 ﻿using System;
+using System.Collections.Generic;
 using PetShop.Core.Entity;
+using PetShop.Core.Helper;
 
 namespace PetShop.Infrastructure.Data
 {
-    public class DBInitialiser
+    public class DBInitialiser: IDBInitialiser
     {
-        public static void SeedDB(PetShopContext ctx)
+        private readonly IAuthenticationHelper _authenticationHelper;
+
+        public DBInitialiser(IAuthenticationHelper authenticationHelper)
+        {
+            _authenticationHelper = authenticationHelper;
+        }
+
+
+
+        public void SeedDB(PetShopContext ctx)  // Using context. Could use repository but ctx is a cleaner change tracker
         {
             ctx.Database.EnsureDeleted();
             ctx.Database.EnsureCreated();
 
+
+            string password = "guess";
+            _authenticationHelper.CreatePasswordHash(password, out byte[] passwordHashAdmin,
+                out byte[] passwordSaltAdmin);
+
+            _authenticationHelper.CreatePasswordHash(password, out byte[] passwordHashUser,
+                out byte[] passwordSaltUser);
+
+
+//  Create Users
+
+            ctx.Users.Add(new User()
+            {
+                Username = "Admin",
+                PasswordHash = passwordHashAdmin,
+                PasswordSalt = passwordSaltAdmin,
+                IsAdmin = true
+            });
+
+            ctx.Users.Add(new User()
+            {
+                Username = "User",
+                PasswordHash = passwordHashUser,
+                PasswordSalt = passwordSaltUser,
+                IsAdmin = false });
+
+
+
+//  Create PetTypes
+
             var petType1 = ctx.PetTypes.Add(new PetType()
             {
-                Name = "Snake"
+                name = "Snake"
             }).Entity;
 
             var petType2 = ctx.PetTypes.Add(new PetType()
             {
-                Name = "Giraffe"
+                name = "Giraffe"
+            }).Entity;
+
+            var petType3 = ctx.PetTypes.Add(new PetType()
+            {
+                name = "Jaguar"
+            }).Entity;
+
+            var petType4 = ctx.PetTypes.Add(new PetType()
+            {
+                name = "Wolverine"
+            }).Entity;
+
+            var petType5 = ctx.PetTypes.Add(new PetType()
+            {
+                name = "Bear"
             }).Entity;
 
 
+
+//  Create Owners
+
             Owner owner1 = ctx.Owners.Add(new Owner()
             {
-                Name = "Cobber McCorker",
-                Address = "30 Happy Pet Lane",
-                PetsOwned = null
+                name = "Cobber McCorker",
+                address = "30 Happy Pet Lane",
+                petsOwned = null
             }).Entity;
 
             Owner owner2 = ctx.Owners.Add(new Owner()
             {
-                Name = "Daevid Allen",
-                Address = "Planet Gong",
-                PetsOwned = null
+                name = "Daevid Allen",
+                address = "Planet Gong",
+                petsOwned = null
             }).Entity;
 
+            Owner owner3 = ctx.Owners.Add(new Owner()
+            {
+                name = "Billy Bully",
+                address = "45 Snooze Pl",
+                petsOwned = null
+            }).Entity;
+
+            Owner owner4 = ctx.Owners.Add(new Owner()
+            {
+                name = "Mike Muscles",
+                address = "76 Strong St",
+                petsOwned = null
+            }).Entity;
+
+
+
+//  Create Pets
 
             var pet1 = ctx.Pets.Add(new Pet()
             {
-                //  PetId = 1,
-                Name = "Geoff",
-                Type = petType1,
-                BirthDate = Convert.ToDateTime("1992-12-15"),
-                SoldDate = Convert.ToDateTime("2019-11-15"),
-                Colour = "Red",
-                PreviousOwner = owner2,
-                Price = 330
+                name = "Geoff",
+                type = petType1,
+                birthDate = Convert.ToDateTime("1992-12-15"),
+                soldDate = Convert.ToDateTime("2019-11-15"),
+                colour = "Red",
+                petOwner = owner2,
+                price = 330
             }).Entity;
 
-            Pet pet2 = new Pet()
+            Pet pet2 = ctx.Pets.Add(new Pet()
             {
-                Name = "Leo Long",
-                Type = petType2,
-                BirthDate = Convert.ToDateTime("1920-12-14"),
-                SoldDate = Convert.ToDateTime("2012-11-15"),
-                Colour = "Blue",
-                PreviousOwner = owner1,
-                Price = 1250
-            };
+                name = "Leo Long",
+                type = petType2,
+                birthDate = Convert.ToDateTime("1920-12-14"),
+                soldDate = Convert.ToDateTime("2012-11-15"),
+                colour = "Blue",
+                petOwner = owner1,
+                price = 1250
+            }).Entity;
+
+            Pet pet3 = ctx.Pets.Add(new Pet()
+            {
+                name = "Jimmy",
+                type = petType3,
+                birthDate = Convert.ToDateTime("1920-12-14"),
+                soldDate = Convert.ToDateTime("2012-11-15"),
+                colour = "Blue",
+                petOwner = owner1,
+                price = 340
+            }).Entity;
+
+            Pet pet4 = ctx.Pets.Add(new Pet()
+            {
+                name = "Bobby",
+                type = petType4,
+                birthDate = Convert.ToDateTime("1920-12-14"),
+                soldDate = Convert.ToDateTime("2012-11-15"),
+                colour = "Brown",
+                petOwner = owner3,
+                price = 888
+            }).Entity;
+
+            Pet pet5 = ctx.Pets.Add(new Pet()
+            {
+                name = "Sid",
+                type = petType5,
+                birthDate = Convert.ToDateTime("1920-12-14"),
+                soldDate = Convert.ToDateTime("2012-11-15"),
+                colour = "Orange",
+                petOwner = owner3,
+                price = 454
+            }).Entity;
+
+            Pet pet6 = ctx.Pets.Add(new Pet()
+            {
+                name = "Gus",
+                type = petType3,
+                birthDate = Convert.ToDateTime("1920-12-14"),
+                soldDate = Convert.ToDateTime("2012-11-15"),
+                colour = "Red",
+                petOwner = owner2,
+                price = 250
+            }).Entity;
 
 
+            ctx.SaveChanges();
         }
     }
 }
