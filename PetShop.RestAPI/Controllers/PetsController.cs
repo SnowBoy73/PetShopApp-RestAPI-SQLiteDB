@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetShop.Core.ApplicationService;
 using PetShop.Core.Entity;
@@ -10,9 +12,10 @@ using PetShop.Core.Entity;
 
 namespace PetShop.RestAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Produces("application/json")]
+    [Route("[controller]")] // api/
     [ApiController]
-    public class PetsController : ControllerBase
+    public class PetsController : Controller//Base
     {
       
         private readonly IPetService _petService;
@@ -78,6 +81,7 @@ namespace PetShop.RestAPI.Controllers
 
 
         // GET api/pets
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<Pet>> Get([FromQuery] PagingFilter filter)
         {
@@ -88,6 +92,7 @@ namespace PetShop.RestAPI.Controllers
 
 
         // GET api/pets/5
+        [Authorize(Roles = "Administrator")]
         [HttpGet("{id}")]
         public ActionResult<Pet> Get(int id)
         {
@@ -106,6 +111,7 @@ namespace PetShop.RestAPI.Controllers
 
 
         // POST api/pets
+        [Authorize(Roles = "Administrator")]
         [HttpPost]  // NOT essential. Only needed if we change this methods name from "Post", and then it tells the system this is the POST method. Needed if sending parameters
         public ActionResult<Pet> Post([FromBody] Pet petToPost)
         {
@@ -130,6 +136,7 @@ namespace PetShop.RestAPI.Controllers
 
 
         // PUT api/pets/5
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
         public ActionResult<Pet> Put(int id, [FromBody] Pet petToPut)
         {
@@ -152,11 +159,12 @@ namespace PetShop.RestAPI.Controllers
                 return StatusCode(404, "No pet with id " + id + " was found to update");
             }
             return StatusCode(202, petToUpdate);
-        }
+}
 
 
 
-        // DELETE api/pets/5
+// DELETE api/pets/5
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         public ActionResult<Pet> Delete(int id)
         {

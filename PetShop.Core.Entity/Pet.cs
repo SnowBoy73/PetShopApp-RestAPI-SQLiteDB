@@ -12,5 +12,6 @@ namespace PetShop.Core.Entity
         public double price { get; set; }
         public DateTime soldDate { get; set; }
         public Owner petOwner { get; set; }
+        public bool IsComplete { get; set; }
     }
 }

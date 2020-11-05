@@ -100,22 +100,6 @@ namespace PetShop.Core.ApplicationService.Impl
 
         public Pet UpdatePet(Pet petUpdate)
         {
-            /*   var updatedPet = FindPetById(petUpdate.PetId);
-               if (updatedPet == null)
-               {
-                   return null;
-               }
-               else
-               {
-                   updatedPet.Name = petUpdate.Name;
-                   updatedPet.Type = petUpdate.Type;
-                   updatedPet.Colour = petUpdate.Colour;
-                   updatedPet.BirthDate = petUpdate.BirthDate;
-                   updatedPet.Price = petUpdate.Price;
-                   updatedPet.SoldDate = petUpdate.SoldDate;
-                   updatedPet.PreviousOwner = petUpdate.PreviousOwner;
-                   return updatedPet;  
-               } */
             return _petRepo.UpdatePet(petUpdate);
         }
 

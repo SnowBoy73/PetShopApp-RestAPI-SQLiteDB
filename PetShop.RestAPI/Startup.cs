@@ -27,14 +27,17 @@ namespace PetShop.RestAPI
     public class Startup
     {
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Environment = env;
+
         }
 
 
         public IConfiguration Configuration { get; }
-        public object LoggerService { get; private set; }
+        public IWebHostEnvironment Environment { get; }
+     //   public object LoggerService { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -92,9 +95,6 @@ namespace PetShop.RestAPI
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<IPetTypeService, PetTypeService>();
-
-           
-
 
             // Register database initializer
             services.AddTransient<IDBInitialiser, DBInitialiser>();
@@ -159,7 +159,6 @@ namespace PetShop.RestAPI
                     var petTypeRepository = scope.ServiceProvider.GetService<IPetTypeRepository>();
                     var dbIntialiser = scope.ServiceProvider.GetService<IDBInitialiser>();
                     dbIntialiser.SeedDB(ctx);
-                    // DBInitialiser.SeedDB(ctx);
 
                 }
             }
@@ -173,10 +172,10 @@ namespace PetShop.RestAPI
 
             app.UseCors();
 
-            app.UseAuthorization();
-
             app.UseAuthentication();
-
+            
+            app.UseAuthorization();
+            
             // localhost/pet
             app.UseEndpoints(endpoints =>
             {

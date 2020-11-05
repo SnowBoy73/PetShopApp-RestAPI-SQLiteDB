@@ -14,7 +14,7 @@
         "outputPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core.Entity/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/jeannerosendalsoeltoft/.config/NuGet/NuGet.Config"
+          "/Users/jeannerosendalsoeltoft/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -64,7 +64,7 @@
         "outputPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/jeannerosendalsoeltoft/.config/NuGet/NuGet.Config"
+          "/Users/jeannerosendalsoeltoft/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -132,7 +132,7 @@
         "outputPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Infrastructure.Static.Data/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/jeannerosendalsoeltoft/.config/NuGet/NuGet.Config"
+          "/Users/jeannerosendalsoeltoft/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -203,7 +203,7 @@
         "outputPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.RestAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/jeannerosendalsoeltoft/.config/NuGet/NuGet.Config"
+          "/Users/jeannerosendalsoeltoft/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -235,6 +235,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.Certificate": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[3.1.9, )"
@@ -245,15 +249,15 @@
             },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
-              "version": "[3.1.8, )"
+              "version": "[3.1.9, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[3.1.8, )"
+              "version": "[3.1.9, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite.Core": {
               "target": "Package",
-              "version": "[3.1.8, )"
+              "version": "[3.1.9, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite.Design": {
               "target": "Package",
@@ -261,11 +265,11 @@
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
-              "version": "[3.1.8, )"
+              "version": "[3.1.9, )"
             },
             "Microsoft.Extensions.Logging.Console": {
               "target": "Package",
-              "version": "[3.1.8, )"
+              "version": "[3.1.9, )"
             },
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",

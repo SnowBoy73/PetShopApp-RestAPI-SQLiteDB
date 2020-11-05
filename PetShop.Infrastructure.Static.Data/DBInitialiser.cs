@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Internal;
 using PetShop.Core.Entity;
 using PetShop.Core.Helper;
 
@@ -21,32 +22,43 @@ namespace PetShop.Infrastructure.Data
             ctx.Database.EnsureDeleted();
             ctx.Database.EnsureCreated();
 
+            if (ctx.Pets.Any())
+            {
+                return;
+            }
 
-            string password = "guess";
+            List<Pet> pets = new List<Pet>
+            {
+                new Pet {IsComplete = true, name = "Works"},
+                new Pet {IsComplete = false, name = " Not Works"},
+            };
+                
+            string password = "1234";
             _authenticationHelper.CreatePasswordHash(password, out byte[] passwordHashAdmin,
                 out byte[] passwordSaltAdmin);
 
             _authenticationHelper.CreatePasswordHash(password, out byte[] passwordHashUser,
-                out byte[] passwordSaltUser);
-
-
-//  Create Users
-
-            ctx.Users.Add(new User()
+                out byte[] passwordSaltUser); 
+            
+            //  Create Users
+            List<User> users = new List<User>
             {
-                Username = "Admin",
-                PasswordHash = passwordHashAdmin,
-                PasswordSalt = passwordSaltAdmin,
-                IsAdmin = true
-            });
+                new User
+                    {
+                        Username = "Admin",
+                        PasswordHash = passwordHashAdmin,
+                        PasswordSalt = passwordSaltAdmin,
+                        IsAdmin = true
+                    },
 
-            ctx.Users.Add(new User()
-            {
-                Username = "User",
-                PasswordHash = passwordHashUser,
-                PasswordSalt = passwordSaltUser,
-                IsAdmin = false });
-
+                    new User 
+                    {
+                        Username = "User",
+                        PasswordHash = passwordHashUser,
+                        PasswordSalt = passwordSaltUser,
+                        IsAdmin = false
+                    }
+                };
 
 
 //  Create PetTypes
@@ -178,7 +190,8 @@ namespace PetShop.Infrastructure.Data
                 price = 250
             }).Entity;
 
-
+            ctx.Pets.AddRange(pets);
+            ctx.Users.AddRange(users);
             ctx.SaveChanges();
         }
     }

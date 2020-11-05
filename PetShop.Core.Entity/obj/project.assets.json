@@ -20,7 +20,7 @@
       "outputPath": "/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.Core.Entity/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/jeannerosendalsoeltoft/.config/NuGet/NuGet.Config"
+        "/Users/jeannerosendalsoeltoft/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"

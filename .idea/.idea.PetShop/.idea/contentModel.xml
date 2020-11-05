@@ -41,7 +41,7 @@
       <e p="PetShop.Core.Entity" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Filter.cs" t="Include" />
-        <e p="LoginInput.cs" t="Include" />
+        <e p="LoginInputModel.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
@@ -59,6 +59,7 @@
       <e p="PetShop.Infrastructure.Static.Data" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="DBInitialiser.cs" t="Include" />
+        <e p="IDBInitialiser.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
@@ -83,10 +84,8 @@
           <e p="OwnersController.cs" t="Include" />
           <e p="PetsController.cs" t="Include" />
           <e p="PetTypesController.cs" t="Include" />
+          <e p="Token.cs" t="Include" />
           <e p="UsersController.cs" t="Include" />
-        </e>
-        <e p="Models" t="Include">
-          <e p="LoginInputModel.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

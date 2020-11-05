@@ -198,3 +198,4 @@
 /Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.RestAPI/bin/Debug/netcoreapp3.1/Swashbuckle.AspNetCore.Swagger.dll
 /Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.RestAPI/bin/Debug/netcoreapp3.1/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.RestAPI/obj/Debug/netcoreapp3.1/PetShop.RestAPI.MvcApplicationPartsAssemblyInfo.cs
+/Users/jeannerosendalsoeltoft/Documents/_Alan/CSe19/SDP/C# Projects/PetShop/PetShopApp-RestAPI-SQLiteDB/PetShop.RestAPI/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Authentication.Certificate.dll
