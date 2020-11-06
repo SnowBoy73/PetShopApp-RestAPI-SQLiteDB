@@ -13,7 +13,7 @@ using PetShop.Core.Entity;
 namespace PetShop.RestAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("[controller]")] // api/
+    [Route("api/[controller]")] // api/
     [ApiController]
     public class PetsController : Controller//Base
     {

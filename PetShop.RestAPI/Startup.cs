@@ -90,11 +90,13 @@ namespace PetShop.RestAPI
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
             services.AddScoped<IPetTypeRepository, PetTypeRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             // Register services for dependency injection
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<IPetTypeService, PetTypeService>();
+            services.AddScoped<IUserService, UserService>();
 
             // Register database initializer
             services.AddTransient<IDBInitialiser, DBInitialiser>();
@@ -166,7 +168,7 @@ namespace PetShop.RestAPI
             {
                 app.UseHsts();
             }
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 

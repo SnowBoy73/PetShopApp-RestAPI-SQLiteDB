@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PetShop.Infrastructure.Data.Repositories
 {
-    public class UserRepository : IUserRepository<User>
+    public class UserRepository : IUserRepository
     {
         readonly PetShopContext _ctx;
 

@@ -35,11 +35,11 @@
       "dependencies": {
         "Microsoft.EntityFrameworkCore.Sqlite": {
           "target": "Package",
-          "version": "[3.1.8, )"
+          "version": "[3.1.9, )"
         },
         "Microsoft.EntityFrameworkCore.Sqlite.Core": {
           "target": "Package",
-          "version": "[3.1.8, )"
+          "version": "[3.1.9, )"
         },
         "Microsoft.EntityFrameworkCore.Sqlite.Design": {
           "target": "Package",

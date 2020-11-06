@@ -27,11 +27,8 @@ namespace PetShop.Infrastructure.Data
                 return;
             }
 
-            List<Pet> pets = new List<Pet>
-            {
-                new Pet {IsComplete = true, name = "Works"},
-                new Pet {IsComplete = false, name = " Not Works"},
-            };
+         
+            
                 
             string password = "1234";
             _authenticationHelper.CreatePasswordHash(password, out byte[] passwordHashAdmin,
@@ -123,7 +120,7 @@ namespace PetShop.Infrastructure.Data
 
 
 //  Create Pets
-
+            //List<Pet> pets = new List<Pet>
             var pet1 = ctx.Pets.Add(new Pet()
             {
                 name = "Geoff",
@@ -190,7 +187,7 @@ namespace PetShop.Infrastructure.Data
                 price = 250
             }).Entity;
 
-            ctx.Pets.AddRange(pets);
+            // ctx.Pets.AddRange(pets);
             ctx.Users.AddRange(users);
             ctx.SaveChanges();
         }

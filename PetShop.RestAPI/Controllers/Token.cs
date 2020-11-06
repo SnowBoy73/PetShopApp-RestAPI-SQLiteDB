@@ -15,10 +15,10 @@ namespace PetShop.RestAPI.Controllers
     public class Token : Controller
     {
      
-            private IUserRepository<User> repository;
+            private IUserRepository repository;
             private IAuthenticationHelper authenticationHelper;
 
-            public Token(IUserRepository<User> repos, IAuthenticationHelper authHelper)
+            public Token(IUserRepository repos, IAuthenticationHelper authHelper)
             {
                 repository = repos;
                 authenticationHelper = authHelper;

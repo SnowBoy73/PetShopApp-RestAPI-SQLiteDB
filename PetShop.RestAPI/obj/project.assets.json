@@ -1917,8 +1917,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Sqlite": "3.1.8",
-          "Microsoft.EntityFrameworkCore.Sqlite.Core": "3.1.8",
+          "Microsoft.EntityFrameworkCore.Sqlite": "3.1.9",
+          "Microsoft.EntityFrameworkCore.Sqlite.Core": "3.1.9",
           "Microsoft.EntityFrameworkCore.Sqlite.Design": "1.1.6",
           "PetShop.Core": "1.0.0",
           "PetShop.Core.Entity": "1.0.0"

@@ -4,7 +4,7 @@ using PetShop.Core.Entity;
 
 namespace PetShop.Core.DomainService
 {
-    public interface IUserRepository<User>
+    public interface IUserRepository
     {
         // Create User
         // No id when enter, id when exit

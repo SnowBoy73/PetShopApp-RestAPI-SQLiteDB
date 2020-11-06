@@ -11,9 +11,9 @@ namespace PetShop.Core.ApplicationService.Impl
     public class UserService: IUserService
     {
         private readonly IAuthenticationHelper _authenticationHelper;
-        readonly IUserRepository<User> _userRepo;
+        readonly IUserRepository _userRepo;
 
-        public UserService(IUserRepository<User> userRepository, IAuthenticationHelper authenticationHelper)
+        public UserService(IUserRepository userRepository, IAuthenticationHelper authenticationHelper)
         {
             _authenticationHelper = authenticationHelper;
             _userRepo = userRepository;
