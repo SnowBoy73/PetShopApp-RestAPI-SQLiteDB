@@ -26,10 +26,7 @@ namespace PetShop.Infrastructure.Data
             {
                 return;
             }
-
-         
-            
-                
+ 
             string password = "1234";
             _authenticationHelper.CreatePasswordHash(password, out byte[] passwordHashAdmin,
                 out byte[] passwordSaltAdmin);
@@ -42,7 +39,7 @@ namespace PetShop.Infrastructure.Data
             {
                 new User
                     {
-                        Username = "Admin",
+                        Username = "admin",
                         PasswordHash = passwordHashAdmin,
                         PasswordSalt = passwordSaltAdmin,
                         IsAdmin = true
@@ -50,7 +47,7 @@ namespace PetShop.Infrastructure.Data
 
                     new User 
                     {
-                        Username = "User",
+                        Username = "user",
                         PasswordHash = passwordHashUser,
                         PasswordSalt = passwordSaltUser,
                         IsAdmin = false
@@ -139,7 +136,7 @@ namespace PetShop.Infrastructure.Data
                 birthDate = Convert.ToDateTime("1920-12-14"),
                 soldDate = Convert.ToDateTime("2012-11-15"),
                 colour = "Blue",
-                petOwner = owner1,
+                petOwner = owner4,
                 price = 1250
             }).Entity;
 

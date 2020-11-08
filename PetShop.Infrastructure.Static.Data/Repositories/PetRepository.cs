@@ -30,7 +30,7 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public IEnumerable<Pet> ReadAllPets()
         {
-            return _ctx.Pets.Include(p => p.petOwner).Include(p => p.type); // 201030
+            return _ctx.Pets.Include(p => p.petOwner).Include(p => p.type); // 201106
         }
 
 

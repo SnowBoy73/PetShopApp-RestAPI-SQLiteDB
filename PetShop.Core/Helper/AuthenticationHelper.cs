@@ -57,7 +57,7 @@ namespace PetShop.Core.Helper
                 new JwtHeader(new SigningCredentials(
                     new SymmetricSecurityKey(_secretBytes),
                     SecurityAlgorithms.HmacSha256)),
-                new JwtPayload(null, null, claims.ToArray(), DateTime.Now, DateTime.Now.AddMinutes(10)));
+                new JwtPayload(null, null, claims.ToArray(), DateTime.Now, DateTime.Now.AddMinutes(60)));
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
